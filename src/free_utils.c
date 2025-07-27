@@ -1,38 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/25 18:02:22 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/07/27 20:59:51 by vmatsuda         ###   ########.fr       */
+/*   Created: 2025/07/27 20:56:22 by vmatsuda          #+#    #+#             */
+/*   Updated: 2025/07/27 21:32:15 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-char	**parse_nums(char *arg)
+void	free_nums(char **nums)
 {
-	char	**nums;
-	int		i;
+	char	**ptr;
 
-	i = 0;
-	nums = ft_split(arg, ' ');
-	if (!nums)
+	ptr = nums;
+	while (*nums)
 	{
-		error("args format");
-		return (NULL);
+		// printf("%s\n", *nums);
+		free(*nums);
+		nums++;
 	}
-	i = 0;
-	while (nums[i] != NULL)
-		// printf("nums[%d] = %s\n", i, nums[i]);
-		i++;
-	if (i <= 1)
-	{
-		free_nums(nums);
-		error("write more numbers");
-		return (NULL);
-	}
-	return (nums);
+	free(ptr);
+	ptr = NULL;
+	// printf("%p\n", ptr);
 }

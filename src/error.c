@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:33:36 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/07/25 17:42:24 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/07/27 21:34:35 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void error(void)
+void	error(char *msg)
 {
-    write(2, "Error\n", 7);
+	ft_printf("Error: %s", msg);
 }

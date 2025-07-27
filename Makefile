@@ -8,7 +8,9 @@ PRINTF_DIR = printf
 
 SRC = main.c \
 		$(SRC_DIR)/validator.c \
-		$(SRC_DIR)/error.c
+		$(SRC_DIR)/error.c \
+		$(SRC_DIR)/parser.c \
+		$(SRC_DIR)/free_utils.c
 	
 OBJ = $(SRC:.c=.o)
 LIBFT_A = $(LIBFT_DIR)/libft.a
@@ -20,7 +22,7 @@ COPY = cp
 AR = ar rcs
 RM = rm -f
 CFLAGS = -Wall -Wextra -Werror
-INCLUDES = -I$(INC_DIR) -I$(LIBFT_DIR) -I$(GNL_DIR) -I$(PRINTF_DIR)
+INCLUDES = -I$(INC_DIR) -I$(LIBFT_DIR) -I$(GNL_DIR) -I$(PRINTF_DIR)/includes
 
 all: $(LIBFT_A) $(GNL_A) $(PRINTF_A) $(NAME)
 

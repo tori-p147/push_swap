@@ -1,38 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   sorter.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/25 18:02:22 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/07/27 20:59:51 by vmatsuda         ###   ########.fr       */
+/*   Created: 2025/07/27 21:38:58 by vmatsuda          #+#    #+#             */
+/*   Updated: 2025/07/27 22:07:23 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+# include "push_swap.h"
 
-char	**parse_nums(char *arg)
-{
-	char	**nums;
-	int		i;
-
-	i = 0;
-	nums = ft_split(arg, ' ');
-	if (!nums)
-	{
-		error("args format");
-		return (NULL);
-	}
-	i = 0;
-	while (nums[i] != NULL)
-		// printf("nums[%d] = %s\n", i, nums[i]);
-		i++;
-	if (i <= 1)
-	{
-		free_nums(nums);
-		error("write more numbers");
-		return (NULL);
-	}
-	return (nums);
-}

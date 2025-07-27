@@ -6,7 +6,7 @@
 /*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 21:52:56 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/06/04 22:31:43 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/07/27 17:30:46 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,13 @@
 
 # include <fcntl.h>
 # include <limits.h>
+# include <stdbool.h>
+# include <stdint.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <strings.h>
 # include <unistd.h>
-# include <stdint.h>
 
 typedef struct s_list
 {
@@ -57,7 +58,7 @@ size_t				ft_strlcpy(char *dest, const char *src, size_t size);
 size_t				ft_strlcat(char *dst, const char *src, size_t size);
 char				*ft_strnstr(const char *big, const char *little,
 						size_t len);
-int					ft_atoi(const char *str);
+long				ft_atoi_long(const char *str, bool *error);
 char				*ft_itoa(int nbr);
 char				*ft_strdup(const char *s);
 char				*ft_strjoin(char const *s1, char const *s2);
