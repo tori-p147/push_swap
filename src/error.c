@@ -3,16 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:33:36 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/07/27 21:34:35 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/07/28 18:24:28 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	error(char *msg)
+int return_error(char *msg, t_nums *nums, int *ints)
 {
-	ft_printf("Error: %s", msg);
+	if (msg)
+		ft_printf("Error: %s", msg);
+	if (nums)
+		free_nums(nums);
+	if (ints)
+		free(ints);
+	return (0);
 }
+

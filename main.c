@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:17:34 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/07/27 21:45:28 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/07/28 18:18:19 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,26 @@
 
 int	main(int argc, char **argv)
 {
-	char	**nums;
+	t_nums nums;
 
 	if (argc == 1)
 	{
-		error("wrong args");
+		ft_printf("wrong args\n");
 		return (1);
 	}
-	else if (argc == 2)
+	if (argc == 2)
 	{
-		nums = parse_nums(argv[1]);
-		if (!nums)
+		nums.nums = parse_nums(&nums, argv[1]);
+		if (!nums.nums)
 			return (1);
-		if (!validate_nums(nums))
+		nums.allocated = true;
+		if (!is_valid_nums(&nums))
 			return (1);
-		free_nums(nums);
 		return (0);
 	}
-	else if (argc > 2 && !validate_nums(&argv[1]))
+	nums.nums = argv + 1;
+	nums.allocated = false;
+	if (argc > 2 && !is_valid_nums(&nums))
 		return (1);
 	return (0);
 }

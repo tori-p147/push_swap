@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:23:11 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/07/27 22:27:28 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/07/28 17:14:55 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,43 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-typedef struct t_list
+typedef struct s_node
 {
-	int		value;
-	int		order;
-	int		flag;
-	t_list	*next;
-	t_list	*prev;
-}			s_list;
+	int				value;
+	int				order;
+	int				flag;
+	struct s_node	*next;
+	struct s_node	*prev;
+}					t_node;
 
-char		**parse_nums(char *arg);
-int			validate_nums(char **nums);
-void		error(char *msg);
-int			*check_int_range_and_create_array(char **nums);
-int			check_duplicate(char **nums);
-int			main(int argc, char **argv);
-void		free_nums(char **nums);
-int			is_sorted(int *ints);
-int			count_nums(char **nums);
+typedef struct s_llist
+{
+	t_node			*head;
+	t_node			*tail;
+	int				size;
+}					t_llist;
+
+typedef struct s_nums
+{
+	char			**nums;
+	bool			allocated;
+}					t_nums;
+
+typedef struct s_array
+{
+	int				*ints;
+	int				length;
+}					t_array;
+
+int					is_valid_nums(t_nums *nums);
+char				**parse_nums(t_nums *nums, char *arg);
+int					is_integers(t_nums *nums, t_array *ints);
+int					return_error(char *msg, t_nums *nums, int *ints);
+int					is_nums_uniq(t_nums *nums);
+int					check_duplicate(t_nums *nums);
+int					main(int argc, char **argv);
+void				free_nums(t_nums *nums);
+int					is_sorted(t_array *ints);
+int					count_nums(char **nums);
 
 #endif
