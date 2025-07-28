@@ -6,26 +6,23 @@
 /*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:36:53 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/07/28 18:24:35 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/07/28 18:56:03 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	is_valid_nums(t_nums *nums)
+int	is_valid_nums(t_nums *nums, t_array *ints)
 {
-	t_array ints;
-
 	if (!is_nums_uniq(nums))
 		return (return_error("args have duplicate", nums, NULL));
-	ints.ints = malloc(sizeof(int) * count_nums(nums->nums));
-	if (!ints.ints)
-		return (return_error("can`t allocate ints array\n", nums, ints.ints));
+	ints->ints = malloc(sizeof(int) * count_nums(nums->nums));
+	if (!ints->ints)
+		return (return_error("can`t allocate ints array\n", nums, ints-ints));
 	if (!is_integers(nums, &ints))
-		return (return_error("arg(s) not integer\n", nums, ints.ints));
+		return (return_error("arg(s) not integer\n", nums, ints->ints));
 	if (is_sorted(&ints))
-		return (return_error("numbers are sorted\n", nums, ints.ints));
-	free(ints.ints);
+		return (return_error("numbers are sorted\n", nums, ints->ints));
 	free_nums(nums);
 	return (1);
 }

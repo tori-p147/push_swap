@@ -6,7 +6,7 @@
 /*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:23:11 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/07/28 17:14:55 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/07/28 18:42:54 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,6 @@ int					main(int argc, char **argv);
 void				free_nums(t_nums *nums);
 int					is_sorted(t_array *ints);
 int					count_nums(char **nums);
+t_llist				sort(t_nums *nums);
 
 #endif
