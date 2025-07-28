@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validator.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:36:53 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/07/28 18:56:03 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/07/28 21:00:41 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ int	is_valid_nums(t_nums *nums, t_array *ints)
 		return (return_error("args have duplicate", nums, NULL));
 	ints->ints = malloc(sizeof(int) * count_nums(nums->nums));
 	if (!ints->ints)
-		return (return_error("can`t allocate ints array\n", nums, ints-ints));
-	if (!is_integers(nums, &ints))
+		return (return_error("can`t allocate ints array\n", nums, ints->ints));
+	if (!is_integers(nums, ints))
 		return (return_error("arg(s) not integer\n", nums, ints->ints));
-	if (is_sorted(&ints))
+	if (is_sorted(ints))
 		return (return_error("numbers are sorted\n", nums, ints->ints));
 	free_nums(nums);
 	return (1);
@@ -85,6 +85,7 @@ int	is_integers(t_nums *nums, t_array *ints)
 	printf("length %d\n", ints->length);
 	for (int j = 0; j < ints->length; j++)
 		ft_printf("%d\n", ints->ints[j]);
+	printf("%s\n", "----");
 	return (1);
 }
 
@@ -95,10 +96,10 @@ int	is_sorted(t_array *ints)
 
 	tmp = 0;
 	i = 0;
-	printf("length %d\n", ints->length);
+	// printf("length %d\n", ints->length);
 	while (i < ints->length)
 	{
-		printf("ints %d\n", ints->ints[i]);
+		// printf("ints %d\n", ints->ints[i]);
 		if (tmp != 0 && tmp > ints->ints[i])
 			return (0);
 		tmp = ints->ints[i];

@@ -10,7 +10,9 @@ SRC = main.c \
 		$(SRC_DIR)/validator.c \
 		$(SRC_DIR)/error.c \
 		$(SRC_DIR)/parser.c \
-		$(SRC_DIR)/free_utils.c
+		$(SRC_DIR)/free_utils.c \
+		$(SRC_DIR)/sorter.c \
+		$(SRC_DIR)/lincked_list.c
 	
 OBJ = $(SRC:.c=.o)
 LIBFT_A = $(LIBFT_DIR)/libft.a
