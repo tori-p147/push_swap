@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 20:56:22 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/07/29 18:28:10 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/07/29 22:52:49 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,13 @@ void	free_list(t_llist *list)
 	list->head = NULL;
 	list->tail = NULL;
 	list->size = 0;
+}
+
+void free_all(t_all *all)
+{
+	if (!all)
+		return ;
+	free_list(all->stack_b);
+	all->min_a = 0;
+	all->med = 0;
 }

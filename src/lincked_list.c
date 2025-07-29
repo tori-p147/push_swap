@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lincked_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 21:15:57 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/07/29 19:08:42 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/07/29 23:02:37 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	add_back(t_llist *list, t_node *new_node)
 	printf("back added node = %d, order = %d\n", new_node->value,
 		new_node->order);
 }
+
 t_llist	*init_list(t_llist *list)
 {
 	list = malloc(sizeof(t_llist));
@@ -82,6 +83,24 @@ void	add_node(t_llist *list, t_node *new_node)
 		add_front(list, new_node);
 	else
 		add_back(list, new_node);
+}
+
+t_all	*init_all(t_all *all, t_llist *list_a, t_llist *list_b)
+{
+	all = malloc(sizeof(t_all));
+	if (!all)
+	{
+		free_list(list_a);
+		free_list(list_b);
+		return (NULL);
+	}
+	all->stack_a = list_a;
+	printf("all->stack_a p =%p\n", all->stack_a);
+	all->stack_b = list_b;
+	all->min_a = 0;
+	all->med = 0;
+	printf("init all success\n");
+	return (all);
 }
 
 t_llist	*fill_list(t_llist *list, t_array *unsorted, t_array *sorted)
@@ -131,13 +150,14 @@ t_llist	*create_list(t_llist *list, t_array *ints)
 	// printf("%p\n", list);
 	if (!list)
 		return (NULL);
-	// printf("%p\n", list);
+	printf("list created%p\n", list);
 	// printf("%p\n", list->head);
 	// for (int j = 0; j < ints->length; j++)
 	// 	ft_printf("%d\n", ints->ints[j]);
 	unsorted.ints = malloc(sizeof(int *) * ints->length);
 	if (!unsorted.ints)
 	{
+		printf("try free list %p\n", list);
 		free_list(list);
 		return (NULL);
 	}
@@ -151,11 +171,40 @@ t_llist	*create_list(t_llist *list, t_array *ints)
 	sorted.ints = ints->ints;
 	sorted.length = ints->length;
 	list = fill_list(list, &unsorted, &sorted);
-	free(unsorted.ints);
+	// printf("unsorted.ints before free%p\n", unsorted.ints);
+	// free(unsorted.ints);
 	if (!list)
+		return (NULL);
+	return (list);
+}
+
+t_all	*create_all(t_all *all, t_llist *list, t_array *ints)
+{
+	t_llist	*stack_b;
+
+	// t_llist	*stack_a;
+	// stack_a = NULL;
+	list = create_list(list, ints);
+	if (!list)
+		return (NULL);
+	printf("created stack a %p\n", list);
+	stack_b = NULL;
+	stack_b = init_list(stack_b);
+	if (!stack_b)
 	{
 		free_list(list);
 		return (NULL);
 	}
-	return (list);
+	printf("created stack b %p\n", stack_b);
+	all = NULL;
+	all = init_all(all, list, stack_b);
+	if (!all)
+	{
+		free_list(list);
+		free_list(stack_b);
+		return (NULL);
+	}
+	printf("created ALL %p\n", all);
+	free_list(stack_b);
+	return (all);
 }
