@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:17:34 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/07/28 21:48:25 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/07/29 19:36:26 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int	parse_arguments(t_nums *nums, char **argv, t_array *ints)
 int	main(int argc, char **argv)
 {
 	t_nums	nums;
-	t_llist	sorted_list;
-	t_array	ints;
+	t_llist	*list_a;
+	t_array	unsorted_ints;
 
 	if (argc <= 1)
 	{
@@ -38,20 +38,14 @@ int	main(int argc, char **argv)
 	{
 		nums.nums = argv + 1;
 		nums.allocated = false;
-		if (argc > 2 && !is_valid_nums(&nums, &ints))
+		if (argc > 2 && !is_valid_nums(&nums, &unsorted_ints))
 			return (1);
-		// for (int j = 0; j < ints.length; j++)
-		// 	ft_printf("%d\n", ints.ints[j]);
-		ints = sort(&ints);
-		sorted_list = create_list(&sorted_list, &ints);
 	}
-	else
-	{
-		if (!parse_arguments(&nums, &argv[1], &ints))
-			return (1);
-		ints = sort(&ints);
-		sorted_list = create_list(&sorted_list, &ints);
-		return (0);
-	}
+	else if (!parse_arguments(&nums, &argv[1], &unsorted_ints))
+		return (1);
+	list_a = NULL;
+	list_a = create_list(list_a, &unsorted_ints);
+	if (!list_a)
+		return (1);
 	return (0);
 }

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   sorter.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 21:38:58 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/07/28 21:42:17 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/07/29 17:15:33 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_array	sort(t_array *ints)
+void sort(t_array *ints)
 {
 	int		tmp;
 	bool	is_sorted;
@@ -20,6 +20,7 @@ t_array	sort(t_array *ints)
 	int		*arr;
 
 	is_sorted = false;
+	printf("start sort\n");
 	while (!is_sorted)
 	{
 		is_sorted = true;
@@ -40,6 +41,6 @@ t_array	sort(t_array *ints)
 		}
 	}
 	for (int j = 0; j < ints->length; j++)
-		ft_printf("%d\n", ints->ints[j]);
-	return (*(ints));
+		ft_printf("sorted[%d] = %d\n", j, ints->ints[j]);
+	printf("end sort\n");
 }

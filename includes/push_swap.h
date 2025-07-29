@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:23:11 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/07/28 21:48:36 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/07/29 18:29:52 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,14 @@ typedef struct s_llist
 	int				size;
 }					t_llist;
 
+typedef struct s_all
+{
+	t_llist			*stack_a;
+	t_llist			*stack_b;
+	int				min_a;
+	int				med;
+}					t_all;
+
 typedef struct s_nums
 {
 	char			**nums;
@@ -57,8 +65,14 @@ int					main(int argc, char **argv);
 void				free_nums(t_nums *nums);
 int					is_sorted(t_array *ints);
 int					count_nums(char **nums);
-t_array				sort(t_array *ints);
-void				init_list(t_llist *list);
-t_llist				create_list(t_llist *list, t_array *ints);
+t_llist				*create_list(t_llist *list, t_array *ints);
+t_llist				*init_list(t_llist *list);
+void				sort(t_array *ints);
+t_llist				*fill_list(t_llist *list, t_array *unsorted,
+						t_array *sorted);
+void				add_front(t_llist *list, t_node *new_node);
+void				add_back(t_llist *list, t_node *new_node);
+t_node				*create_node(int value, int order, int flag);
+void				free_list(t_llist *list);
 
 #endif

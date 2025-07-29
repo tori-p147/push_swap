@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 21:52:56 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/07/27 17:30:46 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/07/29 13:47:14 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,13 @@ int					ft_isdigit(unsigned long c);
 void				*ft_memset(void *s, int value, size_t num);
 void				*ft_calloc(size_t nmemb, size_t size);
 char				*ft_substr(char const *s, unsigned int start, size_t len);
-size_t				ft_strlen(const char *str);
-void				*ft_memcpy(void *to, const void *from, size_t n);
+int					ft_strlen(const char *str);
 char				**ft_split(char const *str, char charset);
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void				*ft_memchr(const void *s, int c, size_t n);
 void				ft_bzero(void *s, size_t n);
 void				*ft_memmove(void *to, const void *from, size_t n);
-void				*ft_memcpy(void *to, const void *from, size_t n);
+void				*ft_memcpy(void *to, const void *from, int n);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
 int					ft_isalnum(int c);
 int					ft_isascii(int c);

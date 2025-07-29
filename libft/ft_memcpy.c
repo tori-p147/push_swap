@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 20:14:03 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/05/08 20:30:26 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/07/29 13:35:07 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 // copy from -> to n-bytes
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+void	*ft_memcpy(void *dest, const void *src, int n)
 {
 	unsigned char		*pdest;
 	const unsigned char	*psrc;
