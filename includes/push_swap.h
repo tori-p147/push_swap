@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:23:11 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/07/29 22:44:04 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/07/30 18:53:28 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "ft_printf.h"
 # include "get_next_line.h"
 # include "libft.h"
+# include "sort.h"
 # include <stdlib.h>
 # include <unistd.h>
 
@@ -55,10 +56,11 @@ typedef struct s_array
 	int				length;
 }					t_array;
 
+int					validate(int argc, char **argv, t_array *unsorted_ints);
 int					is_valid_nums(t_nums *nums, t_array *ints);
 char				**parse_nums(t_nums *nums, char *arg);
 int					is_integers(t_nums *nums, t_array *ints);
-int					return_error(char *msg, t_nums *nums, int *ints);
+int					free_and_return_error(t_nums *nums, int *ints);
 int					is_nums_uniq(t_nums *nums);
 int					check_duplicate(t_nums *nums);
 int					main(int argc, char **argv);
@@ -76,5 +78,6 @@ void				add_back(t_llist *list, t_node *new_node);
 t_node				*create_node(int value, int order, int flag);
 void				free_list(t_llist *list);
 void				free_all(t_all *all);
+t_node				*remove_front(t_llist *list);
 
 #endif

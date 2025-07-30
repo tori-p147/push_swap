@@ -1,19 +1,26 @@
 NAME = push_swap
 
 SRC_DIR = src
+VAL_DIR = validation_utils
+SORT_DIR = sort_utils
 INC_DIR = includes
 LIBFT_DIR = libft
 GNL_DIR = gnl
 PRINTF_DIR = printf
 
 SRC = main.c \
-		$(SRC_DIR)/validator.c \
 		$(SRC_DIR)/error.c \
 		$(SRC_DIR)/parser.c \
 		$(SRC_DIR)/free_utils.c \
 		$(SRC_DIR)/sorter.c \
-		$(SRC_DIR)/lincked_list.c
-	
+		$(SRC_DIR)/lincked_list.c \
+		$(SRC_DIR)/$(VAL_DIR)/validation_main.c \
+		$(SRC_DIR)/$(VAL_DIR)/validation_utils.c \
+		$(SRC_DIR)/$(SORT_DIR)/sort_main.c \
+		$(SRC_DIR)/$(SORT_DIR)/sort_small.c \
+		$(SRC_DIR)/$(SORT_DIR)/push.c \
+		$(SRC_DIR)/$(SORT_DIR)/rotate.c \
+
 OBJ = $(SRC:.c=.o)
 LIBFT_A = $(LIBFT_DIR)/libft.a
 GNL_A = $(GNL_DIR)/gnl.a
@@ -46,7 +53,7 @@ $(PRINTF_A):
 $(NAME): $(OBJ) $(LIBFT_A) $(GNL_A) $(PRINTF_A)
 	$(CC) $(OBJ) $(LIBFT_A) $(GNL_A) $(PRINTF_A) $(INCLUDES) -o $(NAME)
 
-clean: 
+clean:
 	$(MAKE) -C $(LIBFT_DIR) clean
 	$(MAKE) -C $(GNL_DIR) clean
 	$(MAKE) -C $(PRINTF_DIR) clean

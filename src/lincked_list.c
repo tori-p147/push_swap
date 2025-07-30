@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lincked_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 21:15:57 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/07/29 23:02:37 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/07/30 17:49:39 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_node	*create_node(int value, int order, int flag)
 {
 	t_node	*new_node;
 
-	new_node = malloc(sizeof(t_node *));
+	new_node = malloc(sizeof(t_node));
 	if (!new_node)
 		return (NULL);
 	new_node->value = value;
@@ -26,6 +26,24 @@ t_node	*create_node(int value, int order, int flag)
 	new_node->prev = NULL;
 	printf("new node %d created\n", new_node->value);
 	return (new_node);
+}
+
+t_node	*remove_front(t_llist *list)
+{
+	t_node	*tmp;
+	t_node	*ptr_head;
+
+	if (!list)
+		return (NULL);
+	ptr_head = list->head;
+	if (list->size > 1)
+	{
+		tmp = ptr_head;
+		ptr_head = ptr_head->next;
+		tmp->next = NULL;
+		return (tmp);
+	}
+	return (NULL);
 }
 
 void	add_front(t_llist *list, t_node *new_node)
@@ -57,9 +75,9 @@ void	add_back(t_llist *list, t_node *new_node)
 	t_node	*ptr_tail;
 
 	ptr_tail = list->tail;
+	ptr_tail->next = new_node;
 	list->tail = new_node;
 	new_node->prev = ptr_tail;
-	ptr_tail->next = new_node;
 	list->size++;
 	printf("back added node = %d, order = %d\n", new_node->value,
 		new_node->order);
@@ -126,12 +144,12 @@ t_llist	*fill_list(t_llist *list, t_array *unsorted, t_array *sorted)
 				new_node = create_node(unsorted->ints[i], j, 0);
 				if (!new_node)
 				{
+					free(unsorted->ints);
 					free_list(list);
 					return (NULL);
 				}
 				add_node(list, new_node);
 				printf("new_node = %d\n", new_node->value);
-				free(new_node);
 				break ;
 			}
 			j++;
@@ -172,7 +190,7 @@ t_llist	*create_list(t_llist *list, t_array *ints)
 	sorted.length = ints->length;
 	list = fill_list(list, &unsorted, &sorted);
 	// printf("unsorted.ints before free%p\n", unsorted.ints);
-	// free(unsorted.ints);
+	free(unsorted.ints);
 	if (!list)
 		return (NULL);
 	return (list);
@@ -199,12 +217,7 @@ t_all	*create_all(t_all *all, t_llist *list, t_array *ints)
 	all = NULL;
 	all = init_all(all, list, stack_b);
 	if (!all)
-	{
-		free_list(list);
-		free_list(stack_b);
 		return (NULL);
-	}
 	printf("created ALL %p\n", all);
-	free_list(stack_b);
 	return (all);
 }

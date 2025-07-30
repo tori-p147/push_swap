@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   push.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/25 18:02:22 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/07/30 18:53:18 by vmatsuda         ###   ########.fr       */
+/*   Created: 2025/07/29 21:21:17 by vmatsuda          #+#    #+#             */
+/*   Updated: 2025/07/30 17:40:16 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-char	**parse_nums(t_nums *nums, char *arg)
+char	*push_a(t_all *all)
 {
-	int	i;
+	t_node	*tmp;
 
-	i = 0;
-	nums->nums = ft_split(arg, ' ');
-	if (!nums)
-	{
-		free_and_return_error(nums, NULL);
-		return (NULL);
-	}
-	nums->allocated = true;
-	return (nums->nums);
+	tmp = remove_front(all->stack_b);
+	add_front(all->stack_a, tmp);
+	return ("pa");
+}
+
+char	*push_b(t_all *all)
+{
+	t_node	*tmp;
+
+	tmp = remove_front(all->stack_a);
+	add_front(all->stack_b, tmp);
+	return ("pb");
 }

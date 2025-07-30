@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validator.c                                        :+:      :+:    :+:   */
+/*   validation_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:36:53 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/07/29 22:24:04 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/07/30 18:56:24 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	is_valid_nums(t_nums *nums, t_array *ints)
+int	is_valid_nums(t_nums **nums, t_array *ints)
 {
 	if (!is_nums_uniq(nums))
-		return (return_error("args have duplicate", nums, NULL));
-	ints->ints = malloc(sizeof(int) * count_nums(nums->nums));
+		return (free_and_return_error(nums, NULL));
+	ints->ints = malloc(sizeof(int) * count_nums(nums.nums));
 	if (!ints->ints)
-		return (return_error("can`t allocate ints array\n", nums, ints->ints));
+		return (free_and_return_error(nums, ints->ints));
 	if (!is_integers(nums, ints))
-		return (return_error("arg(s) not integer\n", nums, ints->ints));
-	if (is_sorted(ints))
-		return (return_error("numbers are sorted\n", nums, ints->ints));
+		return (free_and_return_error(nums, ints->ints));
 	free_nums(nums);
+	if (is_sorted(ints))
+	{
+		free(ints->ints);
+		return (0);
+	}
 	return (1);
 }
 
@@ -92,7 +95,7 @@ int	is_integers(t_nums *nums, t_array *ints)
 int	is_sorted(t_array *ints)
 {
 	int	tmp;
-	int i;
+	int	i;
 
 	tmp = 0;
 	i = 0;

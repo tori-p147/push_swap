@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 20:56:22 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/07/29 22:52:49 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/07/30 18:52:29 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,23 +35,25 @@ void	free_list(t_llist *list)
 	t_node	*head_ptr;
 	t_node	*next_ptr;
 
+	if (!list)
+		return ;
 	head_ptr = list->head;
 	while (head_ptr)
 	{
-		next_ptr = list->head->next;
-		free(list->head);
+		next_ptr = head_ptr->next;
+		free(head_ptr);
 		head_ptr = next_ptr;
 	}
-	list->head = NULL;
-	list->tail = NULL;
-	list->size = 0;
+	free(list);
 }
 
-void free_all(t_all *all)
+void	free_all(t_all *all)
 {
 	if (!all)
 		return ;
+	free_list(all->stack_a);
 	free_list(all->stack_b);
 	all->min_a = 0;
 	all->med = 0;
+	free(all);
 }
