@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:23:11 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/07/30 18:53:28 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/07/30 21:43:44 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,10 @@ typedef struct s_array
 }					t_array;
 
 int					validate(int argc, char **argv, t_array *unsorted_ints);
+int					free_and_return_error(t_nums *nums, int *ints);
 int					is_valid_nums(t_nums *nums, t_array *ints);
 char				**parse_nums(t_nums *nums, char *arg);
 int					is_integers(t_nums *nums, t_array *ints);
-int					free_and_return_error(t_nums *nums, int *ints);
 int					is_nums_uniq(t_nums *nums);
 int					check_duplicate(t_nums *nums);
 int					main(int argc, char **argv);

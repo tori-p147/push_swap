@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   validation_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:36:53 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/07/30 18:56:24 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/07/30 23:00:17 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	is_valid_nums(t_nums **nums, t_array *ints)
+int	is_valid_nums(t_nums *nums, t_array *ints)
 {
 	if (!is_nums_uniq(nums))
 		return (free_and_return_error(nums, NULL));
-	ints->ints = malloc(sizeof(int) * count_nums(nums.nums));
+	ints->ints = malloc(sizeof(int) * count_nums(nums->nums));
 	if (!ints->ints)
 		return (free_and_return_error(nums, ints->ints));
 	if (!is_integers(nums, ints))
@@ -85,10 +85,10 @@ int	is_integers(t_nums *nums, t_array *ints)
 		i++;
 	}
 	ints->length = i;
-	printf("length %d\n", ints->length);
-	for (int j = 0; j < ints->length; j++)
-		ft_printf("%d\n", ints->ints[j]);
-	printf("%s\n", "----");
+	// ft_printf("length %d\n", ints->length);
+	// for (int j = 0; j < ints->length; j++)
+	// 	ft_printf("%d\n", ints->ints[j]);
+	// ft_printf("%s\n", "----");
 	return (1);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_main.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 15:50:24 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/07/30 18:21:05 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/07/30 23:02:21 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,8 @@ void	sort_main(t_all *all)
 	}
 	else if (n == 3)
 	{
-		
+		sort3(all);
 	}
-		// sort3(all);
 	else if (n == 2)
 		ft_printf("%s", rotate(all->stack_a, 'a'));
 }

@@ -19,7 +19,7 @@ SRC = main.c \
 		$(SRC_DIR)/$(SORT_DIR)/sort_main.c \
 		$(SRC_DIR)/$(SORT_DIR)/sort_small.c \
 		$(SRC_DIR)/$(SORT_DIR)/push.c \
-		$(SRC_DIR)/$(SORT_DIR)/rotate.c \
+		$(SRC_DIR)/$(SORT_DIR)/rotate.c
 
 OBJ = $(SRC:.c=.o)
 LIBFT_A = $(LIBFT_DIR)/libft.a
