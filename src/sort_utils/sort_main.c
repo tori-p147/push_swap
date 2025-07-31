@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_main.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 15:50:24 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/07/30 23:02:21 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/07/31 18:01:30 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 void	sort_main(t_all *all)
 {
-	int	n;
+	int		n;
+	t_node	*ptr_head;
+	// t_node	*ptr_next;
 
 	n = all->stack_a->size;
-	printf("%d\n", n);
+	printf("stack size = %d\n", n);
 	if (n > 5)
 	{
 	}
@@ -32,5 +34,11 @@ void	sort_main(t_all *all)
 		sort3(all);
 	}
 	else if (n == 2)
-		ft_printf("%s", rotate(all->stack_a, 'a'));
+		ft_printf("%s", swap(all->stack_a, 'a'));
+	ptr_head = all->stack_a->head;
+	while (ptr_head)
+	{
+		ft_printf("stack a [%d] = %d next = %p\n", ptr_head->order, ptr_head->value, ptr_head->next);
+		ptr_head = ptr_head->next;
+	}
 }

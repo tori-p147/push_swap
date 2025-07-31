@@ -6,7 +6,7 @@
 /*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 21:38:58 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/07/29 17:15:33 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/07/31 14:53:33 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void sort(t_array *ints)
 	int		*arr;
 
 	is_sorted = false;
-	printf("start sort\n");
+	// printf("start sort\n");
 	while (!is_sorted)
 	{
 		is_sorted = true;
@@ -40,7 +40,7 @@ void sort(t_array *ints)
 			i++;
 		}
 	}
-	for (int j = 0; j < ints->length; j++)
-		ft_printf("sorted[%d] = %d\n", j, ints->ints[j]);
-	printf("end sort\n");
+	// for (int j = 0; j < ints->length; j++)
+	// 	ft_printf("sorted[%d] = %d\n", j, ints->ints[j]);
+	// printf("end sort\n");
 }
