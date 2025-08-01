@@ -6,7 +6,7 @@
 /*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 21:15:57 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/07/31 16:43:12 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/01 17:59:28 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,27 +28,34 @@ t_node	*create_node(int value, int order, int flag)
 	return (new_node);
 }
 
-t_node	*remove_front(t_llist *list)
+t_node	*remove_first(t_llist *list)
 {
-	t_node	*tmp;
-	t_node	*ptr_head;
+	t_node	*first;
+	t_node	*second;
 
+	ft_printf("remove_front start\n");
 	if (!list)
 		return (NULL);
-	ptr_head = list->head;
+	first = list->head;
+	ft_printf("first value = %d\n", first->value);
+	second = list->head->next;
+	ft_printf("size = %d\n", list->size);
 	if (list->size > 1)
 	{
-		tmp = ptr_head;
-		ptr_head = ptr_head->next;
-		tmp->next = NULL;
-		return (tmp);
+		ft_printf("head = %d\n", list->head->value);
+		list->head = second;
+		second->prev = NULL;
+		// ft_printf("%d was removed\n", first->value);
+		// ft_printf("%d new head\n", list->head->value);
+		// ft_printf("remove_front end\n");
+		return (first);
 	}
 	return (NULL);
 }
 
-void	add_front(t_llist *list, t_node *new_node)
+void	add_first(t_llist *list, t_node *new_node)
 {
-	t_node	*ptr_head;
+	t_node	*first;
 
 	// printf("list p = %p\n", list);
 	// printf("list.size = %d\n", list->size);
@@ -61,16 +68,15 @@ void	add_front(t_llist *list, t_node *new_node)
 		list->size++;
 		return ;
 	}
-	ptr_head = list->head;
-	list->head = new_node;
-	list->tail = ptr_head;
-	new_node->next = ptr_head;
-	ptr_head->prev = new_node;
+	first = list->head;
+	first->prev = new_node;
+	new_node->next = first;
+	new_node->prev = NULL;
 	// printf("front added node = %d, order = %d\n", new_node->value,
 	// 	new_node->order);
 }
 
-void	add_back(t_llist *list, t_node *new_node)
+void	add_last(t_llist *list, t_node *new_node)
 {
 	t_node	*ptr_tail;
 
@@ -98,9 +104,9 @@ t_llist	*init_list(t_llist *list)
 void	add_node(t_llist *list, t_node *new_node)
 {
 	if (list->size == 0)
-		add_front(list, new_node);
+		add_first(list, new_node);
 	else
-		add_back(list, new_node);
+		add_first(list, new_node);
 }
 
 t_all	*init_all(t_all *all, t_llist *list_a, t_llist *list_b)

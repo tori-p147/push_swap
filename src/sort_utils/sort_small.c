@@ -6,37 +6,61 @@
 /*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 15:56:57 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/07/31 18:40:12 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/01 17:38:15 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_node	*get_min(t_llist *stack_a)
+int	get_min_index(t_llist *stack_a)
 {
-	t_node	*ptr_head;
 	t_node	*min;
+	t_node	*ptr_head;
+	int		min_index;
+	int		i;
 
-	ptr_head = stack_a->head;
+	i = 0;
 	min = stack_a->head;
+	ptr_head = stack_a->head;
 	ft_printf("ptr_head = %d [%p]\n", ptr_head->value, ptr_head);
 	while (ptr_head)
 	{
 		if (ptr_head->value < min->value)
 		{
 			min = ptr_head;
+			min_index = i;
 			ft_printf("min = %d\n", ptr_head->value);
 		}
 		ptr_head = ptr_head->next;
+		i++;
 	}
-	ft_printf("min = %d\n", min->value);
-	ft_printf("order = %d\n", min->order);
-	return (min);
+	return (min_index);
+}
+
+void	shift_min_to_head(t_llist *stack_a)
+{
+	int	rra_times;
+	int	min_index;
+
+	rra_times = 0;
+	min_index = get_min_index(stack_a);
+	if (min_index == 0)
+		return ;
+	if (min_index <= stack_a->size / 2)
+	{
+		while (min_index-- > 0)
+			ft_printf("%s\n", rotate(stack_a, 'a'));
+	}
+	else
+	{
+		rra_times = stack_a->size - min_index;
+		while (rra_times-- > 0)
+			ft_printf("%s\n", reverse_rotate(stack_a, 'a'));
+	}
 }
 
 void	sort3(t_all *all)
 {
-	// t_node	*min;
 	ft_printf("start sort3\n");
 	if (all->stack_a->head->order == 0)
 	{
@@ -60,4 +84,15 @@ void	sort3(t_all *all)
 		else
 			ft_printf("%s", rotate(all->stack_a, 'a'));
 	}
+}
+
+void	sort4(t_all *all)
+{
+	char	*c;
+
+	shift_min_to_head(all->stack_a);
+	c = push_b(all);
+	ft_printf("output = %s\n", c);
+	sort3(all);
+	ft_printf("%s", push_a(all));
 }

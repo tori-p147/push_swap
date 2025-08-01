@@ -6,7 +6,7 @@
 /*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 17:18:40 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/07/31 18:43:08 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/01 17:22:54 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,11 @@ char					*rotate(t_llist *stack_a, char stack_name);
 char					*reverse_rotate(t_llist *stack, char stack_name);
 void					swap_values(t_node *first, t_node *second);
 char					*swap(t_llist *stack, char stack_name);
-t_node					*get_min(t_llist *stack_a);
+int						get_min_index(t_llist *stack_a);
+void					shift_min_to_head(t_llist *stack_a);
 void					sort2(t_llist *stack_a);
 void					sort3(t_all *all);
+void					sort4(t_all *all);
 void					sort_main(t_all *all);
 
 #endif

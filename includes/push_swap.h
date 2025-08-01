@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:23:11 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/07/30 21:43:44 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/01 17:44:10 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ t_llist				*init_list(t_llist *list);
 void				sort(t_array *ints);
 t_llist				*fill_list(t_llist *list, t_array *unsorted,
 						t_array *sorted);
-void				add_front(t_llist *list, t_node *new_node);
-void				add_back(t_llist *list, t_node *new_node);
+void				add_first(t_llist *list, t_node *new_node);
+void				add_last(t_llist *list, t_node *new_node);
 t_node				*create_node(int value, int order, int flag);
 void				free_list(t_llist *list);
 void				free_all(t_all *all);
-t_node				*remove_front(t_llist *list);
+t_node				*remove_first(t_llist *list);
 
 #endif

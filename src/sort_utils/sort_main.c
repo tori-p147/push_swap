@@ -6,7 +6,7 @@
 /*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 15:50:24 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/07/31 18:01:30 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/01 15:31:23 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,15 @@ void	sort_main(t_all *all)
 {
 	int		n;
 	t_node	*ptr_head;
-	// t_node	*ptr_next;
 
 	n = all->stack_a->size;
 	printf("stack size = %d\n", n);
+	ptr_head = all->stack_a->head;
+	while (ptr_head)
+	{
+		ft_printf("stack a [%d] = %d next = %p\n", ptr_head->order, ptr_head->value, ptr_head->next);
+		ptr_head = ptr_head->next;
+	}
 	if (n > 5)
 	{
 	}
@@ -27,12 +32,9 @@ void	sort_main(t_all *all)
 	{
 	}
 	else if (n == 4)
-	{
-	}
+		sort4(all);
 	else if (n == 3)
-	{
 		sort3(all);
-	}
 	else if (n == 2)
 		ft_printf("%s", swap(all->stack_a, 'a'));
 	ptr_head = all->stack_a->head;
