@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_main.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 15:50:24 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/01 15:31:23 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/03 19:47:06 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	sort_main(t_all *all)
 	ptr_head = all->stack_a->head;
 	while (ptr_head)
 	{
-		ft_printf("stack a [%d] = %d next = %p\n", ptr_head->order, ptr_head->value, ptr_head->next);
+		ft_printf("main stack a [%d] = %d next = %p\n", ptr_head->order, ptr_head->value, ptr_head->next);
 		ptr_head = ptr_head->next;
 	}
 	if (n > 5)
@@ -40,7 +40,7 @@ void	sort_main(t_all *all)
 	ptr_head = all->stack_a->head;
 	while (ptr_head)
 	{
-		ft_printf("stack a [%d] = %d next = %p\n", ptr_head->order, ptr_head->value, ptr_head->next);
+		ft_printf("main stack a [%d] = %d next = %p\n", ptr_head->order, ptr_head->value, ptr_head->next);
 		ptr_head = ptr_head->next;
 	}
 }

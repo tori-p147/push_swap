@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lincked_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 21:15:57 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/01 17:59:28 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/01 22:36:56 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,19 @@ t_node	*remove_first(t_llist *list)
 	t_node	*first;
 	t_node	*second;
 
-	ft_printf("remove_front start\n");
+	// ft_printf("remove_front start\n");
 	if (!list)
 		return (NULL);
 	first = list->head;
-	ft_printf("first value = %d\n", first->value);
+	// ft_printf("first value = %d\n", first->value);
 	second = list->head->next;
-	ft_printf("size = %d\n", list->size);
-	if (list->size > 1)
+	// ft_printf("!!!!before remove size = %d\n", list->size);
+	if (list->size > 0)
 	{
-		ft_printf("head = %d\n", list->head->value);
+		// ft_printf("head = %d\n", list->head->value);
 		list->head = second;
 		second->prev = NULL;
+		list->size--;
 		// ft_printf("%d was removed\n", first->value);
 		// ft_printf("%d new head\n", list->head->value);
 		// ft_printf("remove_front end\n");
@@ -53,27 +54,31 @@ t_node	*remove_first(t_llist *list)
 	return (NULL);
 }
 
-void	add_first(t_llist *list, t_node *new_node)
+void	add_front(t_llist *list, t_node *new_node)
 {
-	t_node	*first;
+	t_node	*second;
 
-	// printf("list p = %p\n", list);
-	// printf("list.size = %d\n", list->size);
+	// ft_printf("list p = %p\n", list);
+	// ft_printf("list.size = %d\n", list->size);
 	if (list->size == 0)
 	{
 		list->head = new_node;
 		list->tail = new_node;
-		printf("added first node = %d, order = %d\n", new_node->value,
-			new_node->order);
+		// ft_printf("added first node = %d, order = %d\n", new_node->value,
+		// 	new_node->order);
 		list->size++;
 		return ;
 	}
-	first = list->head;
-	first->prev = new_node;
-	new_node->next = first;
-	new_node->prev = NULL;
-	// printf("front added node = %d, order = %d\n", new_node->value,
-	// 	new_node->order);
+	// ft_printf("list head = %p %d\n", list->head, list->head->value);
+	// ft_printf("list tail = %p %d\n", list->tail, list->tail->value);
+	second = list->head;
+	list->head = new_node;
+	list->head->prev= NULL;
+	list->head->next = second;
+	second->prev = new_node;
+	list->size++;
+	// printf("front added node = %d, order = %d\n", list->head->value,
+	// 	list->head->order);
 }
 
 void	add_last(t_llist *list, t_node *new_node)
@@ -104,9 +109,9 @@ t_llist	*init_list(t_llist *list)
 void	add_node(t_llist *list, t_node *new_node)
 {
 	if (list->size == 0)
-		add_first(list, new_node);
+		add_front(list, new_node);
 	else
-		add_first(list, new_node);
+		add_last(list, new_node);
 }
 
 t_all	*init_all(t_all *all, t_llist *list_a, t_llist *list_b)
@@ -196,9 +201,9 @@ t_llist	*create_list(t_llist *list, t_array *ints)
 	sorted.ints = ints->ints;
 	sorted.length = ints->length;
 	list = fill_list(list, &unsorted, &sorted);
-	list->size = unsorted.length;
-	printf("list a head %p\n", list->head);
-	printf("list a tail %p\n", list->tail);
+	// ft_printf("list a head %p\n", list->head);
+	// ft_printf("list a tail %p\n", list->tail);
+	// ft_printf("list SIZE after create %d\n", list->size);
 	free(unsorted.ints);
 	if (!list)
 		return (NULL);

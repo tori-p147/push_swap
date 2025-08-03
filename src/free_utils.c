@@ -6,7 +6,7 @@
 /*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 20:56:22 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/07/30 21:31:03 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/03 18:11:52 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,17 @@ void	free_nums(t_nums *nums)
 
 void	free_list(t_llist *list)
 {
-	t_node	*head_ptr;
+	t_node	*curr;
 	t_node	*next_ptr;
 
 	if (!list)
 		return ;
-	head_ptr = list->head;
-	while (head_ptr)
+	curr = list->head;
+	while (curr)
 	{
-		next_ptr = head_ptr->next;
-		free(head_ptr);
-		head_ptr = next_ptr;
+		next_ptr = curr->next;
+		free(curr);
+		curr = next_ptr;
 	}
 	free(list);
 }

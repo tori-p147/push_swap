@@ -6,7 +6,7 @@
 /*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:36:53 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/07/30 23:00:17 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/03 20:15:04 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	is_valid_nums(t_nums *nums, t_array *ints)
 	if (!is_integers(nums, ints))
 		return (free_and_return_error(nums, ints->ints));
 	free_nums(nums);
-	if (is_sorted(ints))
+	ft_printf("ints.length = %d \n", ints->length);
+	if (is_sorted(ints->ints, ints->length))
 	{
 		free(ints->ints);
 		return (0);
@@ -92,20 +93,20 @@ int	is_integers(t_nums *nums, t_array *ints)
 	return (1);
 }
 
-int	is_sorted(t_array *ints)
+int	is_sorted(int *ints, int length)
 {
 	int	tmp;
 	int	i;
 
 	tmp = 0;
-	i = 0;
-	// printf("length %d\n", ints->length);
-	while (i < ints->length)
+	i = 1;
+	tmp = ints[0];
+	while (i < length)
 	{
-		// printf("ints %d\n", ints->ints[i]);
-		if (tmp != 0 && tmp > ints->ints[i])
+		if (tmp > ints[i])
 			return (0);
-		tmp = ints->ints[i];
+		tmp = ints[i];
+		ft_printf("valid ints[%d] = %d\n", i, ints[i]);
 		i++;
 	}
 	return (1);

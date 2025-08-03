@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_small.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 15:56:57 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/01 17:38:15 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/03 20:24:26 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ int	get_min_index(t_llist *stack_a)
 	i = 0;
 	min = stack_a->head;
 	ptr_head = stack_a->head;
-	ft_printf("ptr_head = %d [%p]\n", ptr_head->value, ptr_head);
+	// ft_printf("ptr_head = %d [%p]\n", ptr_head->value, ptr_head);
 	while (ptr_head)
 	{
 		if (ptr_head->value < min->value)
 		{
 			min = ptr_head;
 			min_index = i;
-			ft_printf("min = %d\n", ptr_head->value);
+			// ft_printf("min = %d\n", ptr_head->value);
 		}
 		ptr_head = ptr_head->next;
 		i++;
@@ -61,38 +61,85 @@ void	shift_min_to_head(t_llist *stack_a)
 
 void	sort3(t_all *all)
 {
+	int		first;
+	int		second;
+	int		third;
+	t_node	*ptr;
+
 	ft_printf("start sort3\n");
-	if (all->stack_a->head->order == 0)
+	ptr = all->stack_a->head;
+	ft_printf("head = %p\n", ptr);
+	while (ptr)
 	{
-		ft_printf("%s", reverse_rotate(all->stack_a, 'a'));
+		ft_printf("stack_a [%d] = %d\n", ptr->order, ptr->value);
+		ptr = ptr->next;
+	}
+	first = all->stack_a->head->order;
+	second = all->stack_a->head->next->order;
+	third = all->stack_a->head->next->next->order;
+	if (first > second && second > third)
+	{
 		ft_printf("%s", swap(all->stack_a, 'a'));
+		ft_printf("%s", reverse_rotate(all->stack_a, 'a'));
 	}
-	else if (all->stack_a->head->order == 1)
+	else if (first > second && third < first)
+		ft_printf("%s", rotate(all->stack_a, 'a'));
+	else if (first > second && third > first)
+		ft_printf("%s", swap(all->stack_a, 'a'));
+	else if (first < second && first > third)
+		ft_printf("%s", reverse_rotate(all->stack_a, 'a'));
+	else if (first < second && first < third)
 	{
-		if (all->stack_a->tail->order == 0)
-			ft_printf("%s", reverse_rotate(all->stack_a, 'a'));
-		else
-			ft_printf("%s", swap(all->stack_a, 'a'));
+		ft_printf("%s", swap(all->stack_a, 'a'));
+		ft_printf("%s", rotate(all->stack_a, 'a'));
 	}
-	else
+}
+
+int *create_orders_arr(t_llist *stack)
+{
+	int *arr;
+	t_node *ptr_head;
+	int *ptr_arr;
+
+	arr = malloc(sizeof(int) * stack->size);
+	if (!arr)
+		return (NULL);
+	ptr_head = stack->head;
+	ptr_arr = arr;
+	while (ptr_head)
 	{
-		if (all->stack_a->tail->order == 0)
-		{
-			ft_printf("%s", swap(all->stack_a, 'a'));
-			ft_printf("%s", reverse_rotate(all->stack_a, 'a'));
-		}
-		else
-			ft_printf("%s", rotate(all->stack_a, 'a'));
+		*arr++ = ptr_head->order;
+		ptr_head = ptr_head->next;
 	}
+	return (ptr_arr);
 }
 
 void	sort4(t_all *all)
 {
-	char	*c;
+	int		*arr;
+	t_node	*ptr;
 
 	shift_min_to_head(all->stack_a);
-	c = push_b(all);
-	ft_printf("output = %s\n", c);
-	sort3(all);
-	ft_printf("%s", push_a(all));
+	ptr = all->stack_a->head;
+	ft_printf("head before sort 3 = %p\n", ptr);
+	while (ptr)
+	{
+		ft_printf("stack_a [%d] = %d\n", ptr->order, ptr->value);
+		ptr = ptr->next;
+	}
+	arr = create_orders_arr(all->stack_a);
+	if (!arr)
+	{
+		free_all(all);
+		return ;
+	}
+	ft_printf(" arr = %d\n", arr[0]);
+	if (!is_sorted(arr, all->stack_a->size))
+	{
+		ft_printf("%s\n", push_b(all));
+		ft_printf("size before sort3 = %d", all->stack_a->head);
+		sort3(all);
+		ft_printf("%s", push_a(all));
+	}
+	free(arr);
 }
