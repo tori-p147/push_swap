@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_main.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 15:50:24 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/04 18:17:12 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/04 20:47:44 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ void	sort_main(t_all *all)
 	ptr_head_a = all->stack_a->head;
 	while (ptr_head_a)
 	{
-		ft_printf("main stack a before [%d] = %d next = %p\n", ptr_head_a->order, ptr_head_a->value, ptr_head_a->next);
+		ft_printf("main stack a after [%d] = %d next = %p\n", ptr_head_a->order, ptr_head_a->value, ptr_head_a->next);
 		ptr_head_a = ptr_head_a->next;
 	}
 	ptr_head_b = all->stack_b->head;
 	while (ptr_head_b)
 	{
-		ft_printf("main stack b before [%d] = %d next = %p\n", ptr_head_b->order, ptr_head_b->value, ptr_head_b->next);
+		ft_printf("main stack b after [%d] = %d next = %p\n", ptr_head_b->order, ptr_head_b->value, ptr_head_b->next);
 		ptr_head_b = ptr_head_b->next;
 	}
 	free_all(all);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:36:53 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/04 18:05:25 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/04 20:30:37 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,7 @@ int	is_nums_uniq(t_nums *nums)
 		while (nums->nums[j] != NULL)
 		{
 			if (ft_strncmp(nums->nums[i], nums->nums[j], 11) == 0)
-			{
-				// printf("compare nums[%d] = %s and nums[%d] = %s\n", i,
-				//	nums->nums[i],
-				// 	j, nums->nums[j]);
 				return (0);
-			}
 			j++;
 		}
 		i++;

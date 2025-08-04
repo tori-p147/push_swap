@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lincked_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 21:15:57 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/04 18:36:23 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/04 21:32:32 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ t_llist	*fill_list(t_llist *list, t_array *unsorted, t_array *sorted)
 			{
 				new_node = create_node(unsorted->ints[i], j, 0);
 				if (!new_node)
-					exit_create_list_error(NULL, list, NULL, unsorted->ints);
+					exit_create_list_error(NULL, list, NULL, unsorted);
 				add_node(list, new_node);
 				break ;
 			}
@@ -146,13 +146,15 @@ t_llist	*create_list(t_llist *list, t_array *ints)
 {
 	t_array	sorted;
 	t_array	unsorted;
+	int		*ptr;
 
+	ptr = ints->ints;
 	list = init_list(list);
 	if (!list)
-		exit(1);
+		exit_create_list_error(NULL, NULL, NULL, ints);
 	unsorted.ints = malloc(sizeof(int *) * ints->length);
 	if (!unsorted.ints)
-		exit_create_list_error(NULL, list, NULL, NULL);
+		exit_create_list_error(NULL, list, NULL, ints);
 	unsorted.length = ints->length;
 	for (int j = 0; j < unsorted.length; j++)
 		unsorted.ints[j] = ints->ints[j];
@@ -174,8 +176,7 @@ t_all	*create_all(t_all *all, t_llist *list, t_array *ints)
 	stack_b = NULL;
 	stack_b = init_list(stack_b);
 	if (!stack_b)
-		exit_create_list_error(NULL, NULL, NULL, ints);
-	free(ints);
+		exit_create_list_error(NULL, list, NULL, NULL);
 	all = NULL;
 	all = init_all(all, list, stack_b);
 	return (all);

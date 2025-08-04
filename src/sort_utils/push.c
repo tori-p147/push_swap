@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 21:21:17 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/04 16:50:08 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/04 20:56:15 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*push_b(t_all *all)
 		ft_printf("push_b [%d] = %d next = %p\n", ptr_head->order, ptr_head->value, ptr_head->next);
 		ptr_head = ptr_head->next;
 	}
-	ft_printf("STACK_A HEAD = %d\n", all->stack_a->head->value);
+	// ft_printf("STACK_A HEAD = %d\n", all->stack_a->head->value);
 	ft_printf("print push b end\n");
 	return ("pb\n");
 }
