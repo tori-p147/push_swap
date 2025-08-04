@@ -6,7 +6,7 @@
 /*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 17:18:40 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/01 17:22:54 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/04 18:30:18 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@ typedef struct s_node	t_node;
 typedef struct s_llist	t_llist;
 typedef struct s_all	t_all;
 
+int						exit_error_big_sort(t_all *all, char **strs);
+int						exit_create_list_error(t_all *all, t_list *stack_a,
+							t_list *stack_b, t_array *ints);
+void					free_strs(char **str);
 char					*push_a(t_all *all);
 char					*push_b(t_all *all);
 char					*rotate(t_llist *stack_a, char stack_name);
@@ -30,6 +34,10 @@ void					shift_min_to_head(t_llist *stack_a);
 void					sort2(t_llist *stack_a);
 void					sort3(t_all *all);
 void					sort4(t_all *all);
+void					sort5(t_all *all);
+void					sort_rest(t_all *all, int unsort_nums_amount);
+t_node					*get_max_node(t_llist *stack_a);
+void						sort_big(t_all *all);
 void					sort_main(t_all *all);
 
 #endif

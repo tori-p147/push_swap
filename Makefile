@@ -18,6 +18,7 @@ SRC = main.c \
 		$(SRC_DIR)/$(VAL_DIR)/validation_utils.c \
 		$(SRC_DIR)/$(SORT_DIR)/sort_main.c \
 		$(SRC_DIR)/$(SORT_DIR)/sort_small.c \
+		$(SRC_DIR)/$(SORT_DIR)/sort_big.c \
 		$(SRC_DIR)/$(SORT_DIR)/push.c \
 		$(SRC_DIR)/$(SORT_DIR)/rotate.c \
 		$(SRC_DIR)/$(SORT_DIR)/swap.c \

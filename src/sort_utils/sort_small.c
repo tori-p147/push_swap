@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_small.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 15:56:57 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/03 20:24:26 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/04 17:01:47 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,14 @@ int	get_min_index(t_llist *stack_a)
 
 	i = 0;
 	min = stack_a->head;
+	min_index = 0;
 	ptr_head = stack_a->head;
-	// ft_printf("ptr_head = %d [%p]\n", ptr_head->value, ptr_head);
 	while (ptr_head)
 	{
 		if (ptr_head->value < min->value)
 		{
 			min = ptr_head;
 			min_index = i;
-			// ft_printf("min = %d\n", ptr_head->value);
 		}
 		ptr_head = ptr_head->next;
 		i++;
@@ -64,16 +63,7 @@ void	sort3(t_all *all)
 	int		first;
 	int		second;
 	int		third;
-	t_node	*ptr;
 
-	ft_printf("start sort3\n");
-	ptr = all->stack_a->head;
-	ft_printf("head = %p\n", ptr);
-	while (ptr)
-	{
-		ft_printf("stack_a [%d] = %d\n", ptr->order, ptr->value);
-		ptr = ptr->next;
-	}
 	first = all->stack_a->head->order;
 	second = all->stack_a->head->next->order;
 	third = all->stack_a->head->next->next->order;
@@ -95,11 +85,11 @@ void	sort3(t_all *all)
 	}
 }
 
-int *create_orders_arr(t_llist *stack)
+int	*create_orders_arr(t_llist *stack)
 {
-	int *arr;
-	t_node *ptr_head;
-	int *ptr_arr;
+	int		*arr;
+	t_node	*ptr_head;
+	int		*ptr_arr;
 
 	arr = malloc(sizeof(int) * stack->size);
 	if (!arr)
@@ -116,30 +106,34 @@ int *create_orders_arr(t_llist *stack)
 
 void	sort4(t_all *all)
 {
-	int		*arr;
-	t_node	*ptr;
-
 	shift_min_to_head(all->stack_a);
-	ptr = all->stack_a->head;
-	ft_printf("head before sort 3 = %p\n", ptr);
-	while (ptr)
-	{
-		ft_printf("stack_a [%d] = %d\n", ptr->order, ptr->value);
-		ptr = ptr->next;
-	}
+	sort_rest(all, 3);
+}
+
+void	sort_rest(t_all *all, int unsort_nums_amount)
+{
+	int	*arr;
+
 	arr = create_orders_arr(all->stack_a);
 	if (!arr)
 	{
 		free_all(all);
 		return ;
 	}
-	ft_printf(" arr = %d\n", arr[0]);
 	if (!is_sorted(arr, all->stack_a->size))
 	{
 		ft_printf("%s\n", push_b(all));
-		ft_printf("size before sort3 = %d", all->stack_a->head);
-		sort3(all);
+		if (unsort_nums_amount == 3)
+			sort3(all);
+		else if (unsort_nums_amount == 4)
+			sort4(all);
 		ft_printf("%s", push_a(all));
 	}
 	free(arr);
+}
+
+void	sort5(t_all *all)
+{
+	shift_min_to_head(all->stack_a);
+	sort_rest(all, 4);
 }

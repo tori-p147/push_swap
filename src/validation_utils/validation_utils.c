@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:36:53 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/03 20:15:04 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/04 18:05:25 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 int	is_valid_nums(t_nums *nums, t_array *ints)
 {
 	if (!is_nums_uniq(nums))
-		return (free_and_return_error(nums, NULL));
+		return (free_and_return_error_validation(nums, NULL));
 	ints->ints = malloc(sizeof(int) * count_nums(nums->nums));
 	if (!ints->ints)
-		return (free_and_return_error(nums, ints->ints));
+		return (free_and_return_error_validation(nums, ints->ints));
 	if (!is_integers(nums, ints))
-		return (free_and_return_error(nums, ints->ints));
+		return (free_and_return_error_validation(nums, ints->ints));
 	free_nums(nums);
 	ft_printf("ints.length = %d \n", ints->length);
 	if (is_sorted(ints->ints, ints->length))

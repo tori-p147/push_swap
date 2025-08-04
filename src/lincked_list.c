@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lincked_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 21:15:57 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/01 22:36:56 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/04 18:36:23 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,52 +33,44 @@ t_node	*remove_first(t_llist *list)
 	t_node	*first;
 	t_node	*second;
 
-	// ft_printf("remove_front start\n");
 	if (!list)
 		return (NULL);
 	first = list->head;
-	// ft_printf("first value = %d\n", first->value);
-	second = list->head->next;
-	// ft_printf("!!!!before remove size = %d\n", list->size);
-	if (list->size > 0)
+	if (list->size > 1)
 	{
-		// ft_printf("head = %d\n", list->head->value);
+		second = first->next;
 		list->head = second;
 		second->prev = NULL;
-		list->size--;
-		// ft_printf("%d was removed\n", first->value);
-		// ft_printf("%d new head\n", list->head->value);
-		// ft_printf("remove_front end\n");
-		return (first);
 	}
-	return (NULL);
+	else
+	{
+		list->head = NULL;
+		list->tail = NULL;
+	}
+	first->prev = NULL;
+	first->next = NULL;
+	list->size--;
+	ft_printf("remove_front end\n");
+	return (first);
 }
 
 void	add_front(t_llist *list, t_node *new_node)
 {
 	t_node	*second;
 
-	// ft_printf("list p = %p\n", list);
-	// ft_printf("list.size = %d\n", list->size);
 	if (list->size == 0)
 	{
 		list->head = new_node;
 		list->tail = new_node;
-		// ft_printf("added first node = %d, order = %d\n", new_node->value,
-		// 	new_node->order);
 		list->size++;
 		return ;
 	}
-	// ft_printf("list head = %p %d\n", list->head, list->head->value);
-	// ft_printf("list tail = %p %d\n", list->tail, list->tail->value);
 	second = list->head;
 	list->head = new_node;
-	list->head->prev= NULL;
+	list->head->prev = NULL;
 	list->head->next = second;
 	second->prev = new_node;
 	list->size++;
-	// printf("front added node = %d, order = %d\n", list->head->value,
-	// 	list->head->order);
 }
 
 void	add_last(t_llist *list, t_node *new_node)
@@ -90,8 +82,6 @@ void	add_last(t_llist *list, t_node *new_node)
 	list->tail = new_node;
 	new_node->prev = ptr_tail;
 	list->size++;
-	// printf("back added node = %d, order = %d\n", new_node->value,
-	// 	new_node->order);
 }
 
 t_llist	*init_list(t_llist *list)
@@ -102,7 +92,6 @@ t_llist	*init_list(t_llist *list)
 	list->head = NULL;
 	list->tail = NULL;
 	list->size = 0;
-	// printf("init list success\n");
 	return (list);
 }
 
@@ -118,17 +107,11 @@ t_all	*init_all(t_all *all, t_llist *list_a, t_llist *list_b)
 {
 	all = malloc(sizeof(t_all));
 	if (!all)
-	{
-		free_list(list_a);
-		free_list(list_b);
-		return (NULL);
-	}
+		exit_create_list_error(NULL, list_a, list_b, NULL);
 	all->stack_a = list_a;
-	// printf("all->stack_a p =%p\n", all->stack_a);
 	all->stack_b = list_b;
-	all->min_a = 0;
+	all->max_order = 0;
 	all->med = 0;
-	// printf("init all success\n");
 	return (all);
 }
 
@@ -139,29 +122,17 @@ t_llist	*fill_list(t_llist *list, t_array *unsorted, t_array *sorted)
 	int		j;
 
 	i = 0;
-	// ft_printf("start fill\n");
-	// ft_printf("%d\n", unsorted->length);
-	// ft_printf("%d\n", sorted->length);
 	while (i < unsorted->length)
 	{
-		// ft_printf("i = %d\n", i);
 		j = 0;
 		while (j < sorted->length)
 		{
-			// ft_printf("j = %d\n", j);
 			if (unsorted->ints[i] == sorted->ints[j])
 			{
-				// ft_printf("uns[%d] = %d, sort[%d] = %d\n", i, unsorted->ints[i], j,
-				// 	sorted->ints[j]);
 				new_node = create_node(unsorted->ints[i], j, 0);
 				if (!new_node)
-				{
-					free(unsorted->ints);
-					free_list(list);
-					return (NULL);
-				}
+					exit_create_list_error(NULL, list, NULL, unsorted->ints);
 				add_node(list, new_node);
-				// ft_printf("new_node = %d\n", new_node->value);
 				break ;
 			}
 			j++;
@@ -177,36 +148,21 @@ t_llist	*create_list(t_llist *list, t_array *ints)
 	t_array	unsorted;
 
 	list = init_list(list);
-	// printf("%p\n", list);
 	if (!list)
-		return (NULL);
-	// printf("list created%p\n", list);
-	// printf("%p\n", list->head);
-	// for (int j = 0; j < ints->length; j++)
-	// 	ft_printf("%d\n", ints->ints[j]);
+		exit(1);
 	unsorted.ints = malloc(sizeof(int *) * ints->length);
 	if (!unsorted.ints)
-	{
-		// printf("try free list %p\n", list);
-		free_list(list);
-		return (NULL);
-	}
+		exit_create_list_error(NULL, list, NULL, NULL);
 	unsorted.length = ints->length;
 	for (int j = 0; j < unsorted.length; j++)
-	{
 		unsorted.ints[j] = ints->ints[j];
-		// ft_printf("unsorted.ints[%d] = %d\n", j, unsorted.ints[j]);
-	}
 	sort(ints);
 	sorted.ints = ints->ints;
 	sorted.length = ints->length;
 	list = fill_list(list, &unsorted, &sorted);
-	// ft_printf("list a head %p\n", list->head);
-	// ft_printf("list a tail %p\n", list->tail);
-	// ft_printf("list SIZE after create %d\n", list->size);
 	free(unsorted.ints);
 	if (!list)
-		return (NULL);
+		exit_create_list_error(NULL, list, NULL, NULL);
 	return (list);
 }
 
@@ -214,24 +170,13 @@ t_all	*create_all(t_all *all, t_llist *list, t_array *ints)
 {
 	t_llist	*stack_b;
 
-	// t_llist	*stack_a;
-	// stack_a = NULL;
 	list = create_list(list, ints);
-	if (!list)
-		return (NULL);
-	// printf("created stack a %p\n", list);
 	stack_b = NULL;
 	stack_b = init_list(stack_b);
 	if (!stack_b)
-	{
-		free_list(list);
-		return (NULL);
-	}
-	// printf("created stack b %p\n", stack_b);
+		exit_create_list_error(NULL, NULL, NULL, ints);
+	free(ints);
 	all = NULL;
 	all = init_all(all, list, stack_b);
-	if (!all)
-		return (NULL);
-	ft_printf("created ALL %p\n", all);
 	return (all);
 }

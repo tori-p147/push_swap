@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:17:34 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/07/30 22:51:29 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/04 18:34:02 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,6 @@ int	main(int argc, char **argv)
 	list_a = NULL;
 	all = NULL;
 	all = create_all(all, list_a, &unsorted_ints);
-	free(unsorted_ints.ints);
-	if (!all)
-		return (1);
 	sort_main(all);
-	free_all(all);
 	return (0);
 }

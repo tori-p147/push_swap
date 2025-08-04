@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:23:11 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/03 19:53:11 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/04 18:05:50 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_all
 {
 	t_llist			*stack_a;
 	t_llist			*stack_b;
-	int				min_a;
+	int				max_order;
 	int				med;
 }					t_all;
 
@@ -57,7 +57,7 @@ typedef struct s_array
 }					t_array;
 
 int					validate(int argc, char **argv, t_array *unsorted_ints);
-int					free_and_return_error(t_nums *nums, int *ints);
+int					free_and_return_error_validation(t_nums *nums, int *ints);
 int					is_valid_nums(t_nums *nums, t_array *ints);
 char				**parse_nums(t_nums *nums, char *arg);
 int					is_integers(t_nums *nums, t_array *ints);

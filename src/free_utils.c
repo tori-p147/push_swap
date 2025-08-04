@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 20:56:22 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/03 18:11:52 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/04 17:36:41 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,11 @@ void	free_nums(t_nums *nums)
 	ptr = nums->nums;
 	while (*nums->nums)
 	{
-		// printf("%s\n", *nums);
 		free(*nums->nums);
 		nums->nums++;
 	}
 	free(ptr);
 	ptr = NULL;
-	// printf("%p\n", ptr);
 }
 
 void	free_list(t_llist *list)
@@ -53,7 +51,19 @@ void	free_all(t_all *all)
 		return ;
 	free_list(all->stack_a);
 	free_list(all->stack_b);
-	all->min_a = 0;
+	all->max_order = 0;
 	all->med = 0;
 	free(all);
+}
+
+void	free_strs(char **str)
+{
+	char	**ptr;
+
+	if (!str)
+		return ;
+	ptr = str;
+	while (*str)
+		free(*str++);
+	free(ptr);
 }
