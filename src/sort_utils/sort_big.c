@@ -6,7 +6,7 @@
 /*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 15:22:36 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/04 21:53:23 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/04 23:13:37 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,43 @@ t_node	*get_max_node(t_llist *stack_a)
 	return (max_node);
 }
 
+void	push_smaller_than_med(t_all *all, char **str_arr)
+{
+	char	**ptr_arr;
+	t_node	*curr;
+	int		i;
+
+	i = 0;
+	while (i <= all->stack_a->size)
+	{
+		curr = all->stack_a->head;
+		ft_printf("curr = %d\n", curr->order);
+		if (curr->order <= all->med)
+			str_arr[i] = ft_strdup(push_b(all));
+		else
+			str_arr[i] = ft_strdup(rotate(all->stack_a, 'a'));
+		if (!str_arr[i])
+			exit_error_big_sort(all, str_arr, i);
+		i++;
+	}
+	ft_printf("head a  = %d\n", all->stack_a->head->value);
+	str_arr[i] = NULL;
+	ptr_arr = str_arr;
+	//./push_swap 2 3 5 6 1 4
+	while (*str_arr)
+	{
+		ft_printf("%s", *str_arr);
+		str_arr++;
+	}
+	free_strs(ptr_arr, i);
+}
+
 void	sort_big(t_all *all)
 {
 	char	**str_arr;
-	char	**ptr_arr;
 	t_node	*max_node;
 	t_node	*next_node;
-	int		i;
-	t_node	*curr;
 
-	i = 0;
 	str_arr = NULL;
 	max_node = get_max_node(all->stack_a);
 	all->max_order = max_node->order;
@@ -51,33 +78,8 @@ void	sort_big(t_all *all)
 	ft_printf("med = %d\n", all->med);
 	str_arr = malloc(sizeof(char *) * (all->med + 2));
 	if (!str_arr)
-		exit_error_big_sort(all, NULL);
-	while (i <= all->stack_a->size)
-	{
-		curr = all->stack_a->head;
-		ft_printf("curr = %d\n", curr->order);
-		if (curr->order <= all->med)
-		{
-			str_arr[i] = ft_strdup(push_b(all));
-			if (!str_arr[i])
-				exit_error_big_sort(all, str_arr);
-		}
-		else
-		{
-			str_arr[i] = ft_strdup(rotate(all->stack_a, 'a'));
-			if (!str_arr[i])
-				exit_error_big_sort(all, str_arr);
-		}
-		i++;
-	}
-	ft_printf("head a  = %d\n", all->stack_a->head->value);
-	str_arr[i] = NULL;
-	ptr_arr = str_arr;
-	//./push_swap 2 3 5 6 1 4
-	while (*str_arr)
-	{
-		ft_printf("%s", *str_arr);
-		str_arr++;
-	}
-	free_strs(ptr_arr);
+		exit_error_big_sort(all, NULL, 0);
+	push_smaller_than_med(all, str_arr);
+	all->med = (all->max_order - next_node->order) / 2 + next_node->order;
+	push_smaller_than_med(all, str_arr);
 }

@@ -6,7 +6,7 @@
 /*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 20:56:22 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/04 21:46:10 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/04 22:53:10 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,11 @@ void	free_all(t_all *all)
 	free(all);
 }
 
-void	free_strs(char **str)
+void	free_strs(char **str, int i)
 {
-	char	**ptr;
-
 	if (!str)
 		return ;
-	ptr = str;
-	while (*str)
-	{
-		free(*str);
-		str++;
-	}
-	free(ptr);
+	while (i-- < 0)
+		free(str[i]);
+	free(str);
 }
