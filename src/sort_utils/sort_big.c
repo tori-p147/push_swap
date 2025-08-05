@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_big.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 15:22:36 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/05 18:45:14 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/05 22:55:22 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	rotate_a_if_next_found(t_all *all, int *next_order, char **str_arr,
 		check_strdup(all, str_arr, *cmd_i);
 		(*cmd_i)++;
 		(*next_order)++;
+		ft_printf("next was updated = [%d]\n", *next_order);
 	}
 }
 
@@ -75,6 +76,8 @@ void	push_bigger_than_mid(t_all *all, char stack_name, int *next)
 	int		i;
 	int		size;
 	int		cmd_i;
+	t_node	*ptr_head_b;
+	t_node	*ptr_head_a;
 
 	cmd_i = 0;
 	i = 0;
@@ -89,14 +92,22 @@ void	push_bigger_than_mid(t_all *all, char stack_name, int *next)
 	while (i < size)
 	{
 		curr = stack->head;
-		ft_printf("curr = %d\n", curr->order);
+		ft_printf("next = [%d]\n", *next);
+		ft_printf("curr order = [%d]\n", curr->order);
 		// duplicate fix
 		if (curr->order == *next)
 		{
+			ft_printf("find order %d = next %d \n", curr->order, *next);
 			str_arr[cmd_i] = ft_strdup(push_a(all));
 			check_strdup(all, str_arr, cmd_i);
 			cmd_i++;
 			str_arr[cmd_i] = ft_strdup(rotate(all->stack_a, 'a'));
+			while (ptr_head_b)
+			{
+				ft_printf("stack b [%d] = %d next = %p\n", ptr_head_b->order,
+					ptr_head_b->value, ptr_head_b->next);
+				ptr_head_b = ptr_head_b->next;
+			}
 			check_strdup(all, str_arr, cmd_i);
 			cmd_i++;
 			(*next)++;
@@ -117,15 +128,35 @@ void	push_bigger_than_mid(t_all *all, char stack_name, int *next)
 		else
 		{
 			if (stack_name == 'a')
-				str_arr[cmd_i] = ft_strdup(rotate(stack, 'a'));
+			{
+				ptr_head_a = all->stack_a->head;
+				while (ptr_head_a)
+				{
+					str_arr[cmd_i] = ft_strdup(rotate(stack, 'a'));
+					ft_printf("stack b [%d] = %d next = %p\n",
+						ptr_head_a->order, ptr_head_a->value, ptr_head_a->next);
+					ptr_head_a = ptr_head_a->next;
+				}
+				ft_printf("------\n");
+			}
 			else
-				str_arr[cmd_i] = ft_strdup(rotate(stack, 'b'));
+			{
+				ptr_head_b = all->stack_b->head;
+				while (ptr_head_b)
+				{
+					str_arr[cmd_i] = ft_strdup(rotate(stack, 'b'));
+					ft_printf("stack b [%d] = %d next = %p\n",
+						ptr_head_b->order, ptr_head_b->value, ptr_head_b->next);
+					ptr_head_b = ptr_head_b->next;
+				}
+				ft_printf("------\n");
+			}
 			check_strdup(all, str_arr, cmd_i);
 			cmd_i++;
 		}
 		i++;
 	}
-	ft_printf("head a  = %d\n", stack->head->order);
+	all->flag++;
 	str_arr[cmd_i] = NULL;
 	ptr_arr = str_arr;
 	while (*str_arr)
@@ -163,7 +194,9 @@ void	push_smaller_than_mid(t_all *all, char stack_name)
 			if (stack_name == 'a')
 				str_arr[i] = ft_strdup(push_b(all));
 			else
+			{
 				str_arr[i] = ft_strdup(push_a(all));
+			}
 		}
 		else
 		{
@@ -175,7 +208,6 @@ void	push_smaller_than_mid(t_all *all, char stack_name)
 		check_strdup(all, str_arr, i);
 		i++;
 	}
-	ft_printf("head a  = %d\n", stack->head->order);
 	str_arr[i] = NULL;
 	ptr_arr = str_arr;
 	//./push_swap 9 6 3 13 7 11 2 15 1 10 5 12 4 14 8
@@ -191,30 +223,28 @@ void	sort_big(t_all *all)
 {
 	t_node	*max_node;
 	int		next;
-	t_node	*ptr_head_a;
-	t_node	*ptr_head_b;
 
+	// t_node	*ptr_head_a;
+	// t_node	*ptr_head_b;
 	max_node = get_max_node(all->stack_a);
-	next = 1;
+	next = 0;
 	all->max = max_node->order;
-	ft_printf("max next order = %d\n", next);
 	all->mid = (all->max + next) / 2;
-	ft_printf("mid = %d\n", all->mid);
 	push_smaller_than_mid(all, 'a');
-	ptr_head_a = all->stack_a->head;
-	while (ptr_head_a)
-	{
-		ft_printf("main stack a after [%d] = %d next = %p\n", ptr_head_a->order,
-			ptr_head_a->order, ptr_head_a->next);
-		ptr_head_a = ptr_head_a->next;
-	}
-	ptr_head_b = all->stack_b->head;
-	while (ptr_head_b)
-	{
-		ft_printf("main stack b after [%d] = %d next = %p\n", ptr_head_b->order,
-			ptr_head_b->order, ptr_head_b->next);
-		ptr_head_b = ptr_head_b->next;
-	}
+	// ptr_head_a = all->stack_a->head;
+	// while (ptr_head_a)
+	// {
+	// 	ft_printf("main stack a after [%d] = %d next = %p\n", ptr_head_a->order,
+	// 		ptr_head_a->order, ptr_head_a->next);
+	// 	ptr_head_a = ptr_head_a->next;
+	// }
+	// ptr_head_b = all->stack_b->head;
+	// while (ptr_head_b)
+	// {
+	// 	ft_printf("main stack b after [%d] = %d next = %p\n", ptr_head_b->order,
+	// 		ptr_head_b->order, ptr_head_b->next);
+	// 	ptr_head_b = ptr_head_b->next;
+	// }
 	max_node = get_max_node(all->stack_b);
 	all->max = max_node->order;
 	ft_printf("next 2 = %d\n", next);
@@ -222,5 +252,4 @@ void	sort_big(t_all *all)
 	all->mid = (all->max + next) / 2;
 	ft_printf("mid 2 = %d\n", all->mid);
 	push_bigger_than_mid(all, 'b', &next);
-	ft_printf("NEXT = %d\n", next);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lincked_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 21:15:57 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/05 18:30:04 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/05 21:06:56 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_node	*remove_first(t_llist *list)
 	first->prev = NULL;
 	first->next = NULL;
 	list->size--;
-	ft_printf("remove_front end\n");
+	// ft_printf("remove_front end\n");
 	return (first);
 }
 
