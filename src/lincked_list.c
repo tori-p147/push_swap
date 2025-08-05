@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lincked_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 21:15:57 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/04 21:32:32 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/05 18:30:04 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,8 +110,9 @@ t_all	*init_all(t_all *all, t_llist *list_a, t_llist *list_b)
 		exit_create_list_error(NULL, list_a, list_b, NULL);
 	all->stack_a = list_a;
 	all->stack_b = list_b;
-	all->max_order = 0;
-	all->med = 0;
+	all->max = 0;
+	all->mid = 0;
+	all->flag = 0;
 	return (all);
 }
 
@@ -146,9 +147,9 @@ t_llist	*create_list(t_llist *list, t_array *ints)
 {
 	t_array	sorted;
 	t_array	unsorted;
-	int		*ptr;
+	int		i;
 
-	ptr = ints->ints;
+	i = 0;
 	list = init_list(list);
 	if (!list)
 		exit_create_list_error(NULL, NULL, NULL, ints);
@@ -156,8 +157,11 @@ t_llist	*create_list(t_llist *list, t_array *ints)
 	if (!unsorted.ints)
 		exit_create_list_error(NULL, list, NULL, ints);
 	unsorted.length = ints->length;
-	for (int j = 0; j < unsorted.length; j++)
-		unsorted.ints[j] = ints->ints[j];
+	while (i < unsorted.length)
+	{
+		unsorted.ints[i] = ints->ints[i];
+		i++;
+	}
 	sort(ints);
 	sorted.ints = ints->ints;
 	sorted.length = ints->length;

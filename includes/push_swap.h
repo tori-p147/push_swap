@@ -6,7 +6,7 @@
 /*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:23:11 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/04 18:05:50 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/05 18:29:54 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@ typedef struct s_all
 {
 	t_llist			*stack_a;
 	t_llist			*stack_b;
-	int				max_order;
-	int				med;
+	int				max;
+	int				mid;
+	int				flag;
 }					t_all;
 
 typedef struct s_nums

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 17:18:40 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/04 22:53:43 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/05 17:49:05 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,16 @@ typedef struct s_node	t_node;
 typedef struct s_llist	t_llist;
 typedef struct s_all	t_all;
 
+int						push_to_a_if_found_next_order(t_all *all,
+							int *next_order, char **str_arr, int cmd_i);
+void					push_bigger_than_mid(t_all *all, char stack_name,
+							int *next);
+void					push_smaller_than_mid(t_all *all, char stack_name);
+int						get_next_value(t_node *node, t_llist *list);
 int						exit_error_big_sort(t_all *all, char **strs, int i);
 int						exit_create_list_error(t_all *all, t_llist *stack_a,
 							t_llist *stack_b, t_array *ints);
-void	free_strs(char **str, int i);
+void					free_strs(char **str, int i);
 char					*push_a(t_all *all);
 char					*push_b(t_all *all);
 char					*rotate(t_llist *stack_a, char stack_name);
