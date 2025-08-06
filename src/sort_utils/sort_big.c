@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_big.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 15:22:36 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/06 19:00:44 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/06 20:55:21 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ void	push_a_or_rotate(t_all *all)
 				check_strdup(all, str_arr, cmd_i);
 				if (all->chunk == 0)
 					all->stack_a->head->chunk = 1;
+				else 
+					all->stack_a->head->chunk = all->chunk;
 				ptr_head_b = all->stack_b->head;
 				while (ptr_head_b)
 				{
@@ -182,42 +184,45 @@ void	push_half_to_b(t_all *all)
 // 	return (1);
 // }
 
-int count_chunk()
+int	count_chunk(t_all *all)
 {
-	ptr_head = stack_a->head;
+	t_node	*ptr_head;
+	int		count;
+
+	count = 0;
+	ptr_head = all->stack_a->head;
 	while (ptr_head)
 	{
-		if (ptr_head->chunk == chunk)
+		if (ptr_head->chunk == all->chunk)
 			count++;
-		ptr_head = ptr_head->chunk;
+		ptr_head = ptr_head->next;
 	}
-	if (count == 0)
-		return (-1);
-		//check chunk is empty
+	return (count);
+	// check chunk is empty
 }
 
-int calculate_mid_in_chunk(t_llist *stack_a, int chunk)
+int	calculate_mid_in_chunk(t_all *all)
 {
-	int mid;
-	t_node *ptr_head;
-	int *orders;
-	int *size;
-	int count;
-	int i;
-	t_array chunk_nodes;
-	
+	int		mid;
+	t_node	*ptr_head;
+	int		*orders;
+	int		count;
+	int		i;
+	t_array	chunk_nodes;
+
 	count = 0;
 	i = 0;
-	
+	if (count_chunk(all) == 0)
+		return (0);
 	orders = malloc(sizeof(int) * count);
 	if (!orders)
-		return (-1);// ERROR exit
-	ptr_head = stack_a->head;
+		return (-1);
+	ptr_head = all->stack_a->head;
 	while (ptr_head)
 	{
-		if (ptr_head->chunk == chunk)
+		if (ptr_head->chunk == all->chunk)
 			orders[i++] = ptr_head->order;
-		ptr_head = ptr_head->chunk;
+		ptr_head = ptr_head->next;
 	}
 	chunk_nodes.ints = orders;
 	chunk_nodes.length = count;
@@ -236,10 +241,12 @@ void	stack_a_chunk(t_all *all, int chunk, int size)
 	int		i;
 
 	cmd_i = 0;
-	all->mid = calculate_mid_in_chunk(all->stack_a, all->chunk);
+	all->mid = calculate_mid_in_chunk(all);
 	// if chunk is empty return -> check next chunk
 	if (all->mid == -1)
 		exit_error_big_sort(all, NULL, 0);
+	else if (all->mid == 0)
+		return ;
 	curr = all->stack_a->head;
 	str_arr = malloc(sizeof(char *) * (all->stack_a->size + 1));
 	if (!str_arr)
@@ -285,14 +292,14 @@ void	stack_a_chunk(t_all *all, int chunk, int size)
 	free_strs(ptr_arr, cmd_i);
 }
 
-int	calculate_mid(int max, int next, int chunk)
+int	calculate_mid(int max, int next)
 {
 	return ((max - next) / 2 + next);
 }
 
-int has_chunk(t_llist *stack_a, int chunk, int *size)
+int	has_chunk(t_llist *stack_a, int chunk, int *size)
 {
-	t_node *ptr_head;
+	t_node	*ptr_head;
 
 	*size = 0;
 	ptr_head = stack_a->head;
@@ -307,7 +314,7 @@ int has_chunk(t_llist *stack_a, int chunk, int *size)
 		return (1);
 	return (0);
 }
-
+// ./push_swap 9 6 3 13 7 11 2 15 1 10 5 12 4 14 8
 void	sort_big(t_all *all)
 {
 	int	size;
