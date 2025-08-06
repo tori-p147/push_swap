@@ -6,7 +6,7 @@
 /*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:23:11 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/05 18:29:54 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/06 16:11:45 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct s_node
 {
 	int				value;
 	int				order;
-	int				flag;
+	int				chunk;
 	struct s_node	*next;
 	struct s_node	*prev;
 }					t_node;
@@ -42,7 +42,8 @@ typedef struct s_all
 	t_llist			*stack_b;
 	int				max;
 	int				mid;
-	int				flag;
+	int				next;
+	int				chunk;
 }					t_all;
 
 typedef struct s_nums
@@ -76,7 +77,7 @@ t_llist				*fill_list(t_llist *list, t_array *unsorted,
 						t_array *sorted);
 void				add_front(t_llist *list, t_node *new_node);
 void				add_last(t_llist *list, t_node *new_node);
-t_node				*create_node(int value, int order, int flag);
+t_node				*create_node(int value, int order, int chunk);
 void				free_list(t_llist *list);
 void				free_all(t_all *all);
 t_node				*remove_first(t_llist *list);

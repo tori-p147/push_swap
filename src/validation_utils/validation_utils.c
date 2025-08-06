@@ -6,7 +6,7 @@
 /*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:36:53 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/05 12:26:02 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/06 14:33:47 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ int	is_sorted(int *ints, int length)
 		if (tmp > ints[i])
 			return (0);
 		tmp = ints[i];
-		// ft_printf("valid ints[%d] = %d\n", i, ints[i]);
 		i++;
 	}
 	return (1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reverse_rotate.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 21:21:06 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/03 18:36:22 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/06 17:24:51 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ char	*reverse_rotate(t_llist *stack, char stack_name)
 		last->prev = NULL;
 		stack->head = last;
 	}
-	t_node *ptr;
-	ptr = stack->head;
-	ft_printf("head after rra = %p\n", ptr);
-	while (ptr)
-	{
-		ft_printf("stack_a [%d] = %d with next = %p\n", ptr->order, ptr->value, ptr->next);
-		ptr = ptr->next;
-	}
+	// t_node *ptr;
+	// ptr = stack->head;
+	// ft_printf("head after rra = %p\n", ptr);
+	// while (ptr)
+	// {
+	// 	ft_printf("stack_a [%d] = %d with next = %p\n", ptr->order, ptr->value, ptr->next);
+	// 	ptr = ptr->next;
+	// }
 	if (stack_name == 'a')
 		return ("rra\n");
 	return ("rrb\n");

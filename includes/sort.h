@@ -6,7 +6,7 @@
 /*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 17:18:40 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/05 17:49:05 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/06 16:54:32 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,13 @@ typedef struct s_node	t_node;
 typedef struct s_llist	t_llist;
 typedef struct s_all	t_all;
 
+void	stack_a_chunk(t_all *all, int chunk, int size);
+int						has_chunk(t_llist *stack_a, int chunk, int *size);
+int						calculate_mid(int max, int next);
 int						push_to_a_if_found_next_order(t_all *all,
 							int *next_order, char **str_arr, int cmd_i);
-void					push_bigger_than_mid(t_all *all, char stack_name,
-							int *next);
-void					push_smaller_than_mid(t_all *all, char stack_name);
+void					split_stack_b(t_all *all, char stack_name, int *next);
+void					split_stack_a(t_all *all, char stack_name);
 int						get_next_value(t_node *node, t_llist *list);
 int						exit_error_big_sort(t_all *all, char **strs, int i);
 int						exit_create_list_error(t_all *all, t_llist *stack_a,
@@ -43,7 +45,7 @@ void					sort3(t_all *all);
 void					sort4(t_all *all);
 void					sort5(t_all *all);
 void					sort_rest(t_all *all, int unsort_nums_amount);
-t_node					*get_max_node(t_llist *stack_a);
+int						get_max_order(t_llist *stack_a);
 void					sort_big(t_all *all);
 void					sort_main(t_all *all);
 

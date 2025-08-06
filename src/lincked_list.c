@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   lincked_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 21:15:57 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/05 21:06:56 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/06 16:13:17 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_node	*create_node(int value, int order, int flag)
+t_node	*create_node(int value, int order, int chunk)
 {
 	t_node	*new_node;
 
@@ -21,7 +21,7 @@ t_node	*create_node(int value, int order, int flag)
 		return (NULL);
 	new_node->value = value;
 	new_node->order = order;
-	new_node->flag = flag;
+	new_node->chunk = chunk;
 	new_node->next = NULL;
 	new_node->prev = NULL;
 	// printf("new node %d created\n", new_node->value);
@@ -110,9 +110,10 @@ t_all	*init_all(t_all *all, t_llist *list_a, t_llist *list_b)
 		exit_create_list_error(NULL, list_a, list_b, NULL);
 	all->stack_a = list_a;
 	all->stack_b = list_b;
-	all->max = 0;
-	all->mid = 0;
-	all->flag = 0;
+	all->next = 0;
+	all->max = get_max_order(list_a);
+	all->mid = calculate_mid(all->max, all->next);
+	all->chunk = 0;
 	return (all);
 }
 
