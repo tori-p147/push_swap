@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_big.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 15:22:36 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/07 18:56:40 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/07 22:04:49 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,6 @@ void	push_a_or_rotate(t_all *all)
 			str_arr++;
 		}
 		free_strs(ptr_arr, cmd_i);
-		ft_printf("B SIZE BEFORE NEW LOOP = %d\n", stack_b->size);
 	}
 }
 
@@ -196,9 +195,13 @@ int	count_chunk(t_all *all)
 	while (ptr_head)
 	{
 		if (ptr_head->chunk == all->chunk)
+		{
+			ft_printf("count order = [%d] chunk = %d\n", ptr_head->order, ptr_head->chunk);
 			count++;
+				}
 		ptr_head = ptr_head->next;
 	}
+	ft_printf("----\n");
 	return (count);
 	// check chunk is empty
 }
@@ -214,7 +217,9 @@ int	calculate_mid_in_chunk(t_all *all)
 
 	count = 0;
 	i = 0;
-	if (count_chunk(all) == 0)
+	count = count_chunk(all);
+	ft_printf("count for mid = %d\n", count);
+	if (count == 0)
 		return (0);
 	orders = malloc(sizeof(int) * count);
 	if (!orders)
@@ -231,6 +236,7 @@ int	calculate_mid_in_chunk(t_all *all)
 	sort(&chunk_nodes);
 	mid = orders[count / 2];
 	free(chunk_nodes.ints);
+	ft_printf("mid for count %d = %d\n", count, mid);
 	return (mid);
 }
 
@@ -238,15 +244,17 @@ void	stack_a_chunk(t_all *all)
 {
 	t_node	*curr;
 	t_node	*ptr_head_a;
+	t_node	*ptr_head_b;
 	int		cmd_i;
 	char	**str_arr;
 	char	**ptr_arr;
-	int		i;
 	int		loop_count;
+	int count_chunks;
 
-	ft_printf("stack_a_chunk start: chunk=%d, count=%d\n", all->chunk,
-		count_chunk(all));
-	cmd_i = 0;
+	// посчитать сколько есть нодов под текущим чанком
+	// ft_printf("stack_a_chunk start: chunk=%d, count=%d\n", all->chunk,
+	// 	count_chunk(all));
+	// найти медиану
 	all->mid = calculate_mid_in_chunk(all);
 	// if chunk is empty return -> check next chunk
 	if (all->mid == -1)
@@ -257,11 +265,30 @@ void	stack_a_chunk(t_all *all)
 	if (!str_arr)
 		exit_error_big_sort(all, NULL, 0);
 	curr = all->stack_a->head;
-	// refactor to chunk elements (not all)
-	i = 0;
 	loop_count = all->stack_a->size;
-	while (count_chunk(all) > 0 && loop_count-- > 0)
+	count_chunks = count_chunk(all);
+	cmd_i = 0;
+	while (count_chunks > 0 && loop_count-- > 0)
 	{
+		ft_printf("count in while loop %d\n", count_chunks);
+		ptr_head_a = all->stack_a->head;
+	while (ptr_head_a)
+	{
+		ft_printf("stack a after chunk end [%d] = %d, chunk = (%d), next = %p\n",
+			ptr_head_a->order, ptr_head_a->value, ptr_head_a->chunk,
+			(void *)ptr_head_a->next);
+		ptr_head_a = ptr_head_a->next;
+	}
+	// ptr_head_b = all->stack_b->head;
+	// while (ptr_head_b)
+	// {
+	// 	ft_printf("stack b after chunk end [%d] = %d, chunk = (%d),next = %p\n",
+	// 		ptr_head_b->order, ptr_head_b->value, ptr_head_b->chunk,
+	// 		(void *)ptr_head_b->next);
+	// 	ptr_head_b = ptr_head_b->next;
+	// }
+
+	ft_printf("curr = %p chunk = %d next = %p\n", curr, curr->chunk, curr->next);
 		if (curr->chunk == all->chunk)
 		{
 			if (curr->order == all->next)
@@ -274,22 +301,27 @@ void	stack_a_chunk(t_all *all)
 				all->next++;
 				ptr_head_a = all->stack_a->head;
 				all->stack_a->head->chunk = all->chunk;
-				while (ptr_head_a)
-				{
-					ft_printf("stack a after pa/ra [%d] = %d, next = %p\n",
-						ptr_head_a->order, ptr_head_a->value, ptr_head_a->chunk,
-						(void *)ptr_head_a->next);
-					ptr_head_a = ptr_head_a->next;
-				}
+				count_chunks--;
 			}
 			else if (curr->order >= all->mid)
 				str_arr[cmd_i] = ft_strdup(rotate(all->stack_a, 'a'));
 			else
 			{
 				str_arr[cmd_i] = ft_strdup(push_b(all, curr));
+				count_chunks--;
+				ptr_head_b = all->stack_b->head;
+	while (ptr_head_b)
+	{
+		ft_printf("stack b after chunk end [%d] = %d, chunk = (%d),next = %p\n",
+			ptr_head_b->order, ptr_head_b->value, ptr_head_b->chunk,
+			(void *)ptr_head_b->next);
+		ptr_head_b = ptr_head_b->next;
+	}
 			}
 			check_strdup(all, str_arr, cmd_i);
 			cmd_i++;
+			curr = curr->next;
+			ft_printf("curr next order= [%d]\n", curr->next->order);
 		}
 		else
 		{
@@ -297,11 +329,8 @@ void	stack_a_chunk(t_all *all)
 			check_strdup(all, str_arr, cmd_i);
 			cmd_i++;
 			curr = curr->next;
-			i++;
 			continue ;
 		}
-		curr = curr->next;
-		i++;
 	}
 	str_arr[cmd_i] = NULL;
 	ptr_arr = str_arr;
@@ -313,6 +342,22 @@ void	stack_a_chunk(t_all *all)
 	free_strs(ptr_arr, cmd_i);
 	ft_printf("stack_a_chunk end: chunk=%d, count=%d\n", all->chunk,
 		count_chunk(all));
+	ptr_head_a = all->stack_a->head;
+	while (ptr_head_a)
+	{
+		ft_printf("stack a after chunk end [%d] = %d, chunk = (%d), next = %p\n",
+			ptr_head_a->order, ptr_head_a->value, ptr_head_a->chunk,
+			(void *)ptr_head_a->next);
+		ptr_head_a = ptr_head_a->next;
+	}
+	ptr_head_b = all->stack_b->head;
+	while (ptr_head_b)
+	{
+		ft_printf("stack b after chunk end [%d] = %d, chunk = (%d),next = %p\n",
+			ptr_head_b->order, ptr_head_b->value, ptr_head_b->chunk,
+			(void *)ptr_head_b->next);
+		ptr_head_b = ptr_head_b->next;
+	}
 }
 
 int	calculate_mid(int max, int next)
@@ -374,6 +419,7 @@ void	sort_big(t_all *all)
 		ptr_head_b = ptr_head_b->next;
 	}
 	ft_printf("current next = %d, max = %d\n", all->next, all->max);
+	all->chunk++;
 	// while (has_chunk(all))
 	// {
 	// 	if (count_chunk(all) > 0)
@@ -382,19 +428,6 @@ void	sort_big(t_all *all)
 	// 			all->chunk, has_chunk(all));
 			stack_a_chunk(all);
 			ptr_head_a = all->stack_a->head;
-	while (ptr_head_a)
-	{
-		ft_printf("main stack a after [%d] = %d next = %p\n", ptr_head_a->order,
-			ptr_head_a->value, ptr_head_a->next);
-		ptr_head_a = ptr_head_a->next;
-	}
-	ptr_head_b = all->stack_b->head;
-	while (ptr_head_b)
-	{
-		ft_printf("main stack b after [%d] = %d next = %p\n", ptr_head_b->order,
-			ptr_head_b->value, ptr_head_b->next);
-		ptr_head_b = ptr_head_b->next;
-	}
 			all->chunk++;
 			stack_a_chunk(all);
 	// 	}
@@ -405,18 +438,4 @@ void	sort_big(t_all *all)
 	// 	}
 	// }
 	// ft_printf("current next = %d, max = %d\n", all->next, all->max);
-	// ptr_head_a = all->stack_a->head;
-	// while (ptr_head_a)
-	// {
-	// 	ft_printf("main stack a after [%d] = %d next = %p\n", ptr_head_a->order,
-	// 		ptr_head_a->value, ptr_head_a->next);
-	// 	ptr_head_a = ptr_head_a->next;
-	// }
-	// ptr_head_b = all->stack_b->head;
-	// while (ptr_head_b)
-	// {
-	// 	ft_printf("main stack b after [%d] = %d next = %p\n", ptr_head_b->order,
-	// 		ptr_head_b->value, ptr_head_b->next);
-	// 	ptr_head_b = ptr_head_b->next;
-	// }
 }
