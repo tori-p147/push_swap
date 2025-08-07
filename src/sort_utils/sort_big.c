@@ -3,14 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   sort_big.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 15:22:36 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/06 20:55:21 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/07 18:56:40 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <push_swap.h>
+#include "push_swap.h"
+
+void	assign_chunks(t_llist *stack)
+{
+	t_node	*curr;
+	int		total_count;
+	int		num_chunks;
+	int		chunk_size;
+
+	total_count = stack->size;
+	if (total_count <= 100)
+		num_chunks = 5 + (total_count / 20);
+	else if (total_count <= 500)
+		num_chunks = 20 + (total_count / 50);
+	else
+		num_chunks = 50 + (total_count / 100);
+	chunk_size = total_count / num_chunks;
+	if (chunk_size == 0)
+		chunk_size = 1;
+	curr = stack->head;
+	while (curr)
+	{
+		curr->chunk = curr->order / chunk_size;
+		curr = curr->next;
+	}
+}
 
 int	get_max_order(t_llist *stack_a)
 {
@@ -46,8 +71,8 @@ void	push_a_or_rotate(t_all *all)
 	int		i;
 	int		size;
 	int		cmd_i;
-	t_node	*ptr_head_b;
 
+	// t_node	*ptr_head_b;
 	stack_b = all->stack_b;
 	while (stack_b->size > 0)
 	{
@@ -62,7 +87,7 @@ void	push_a_or_rotate(t_all *all)
 		ft_printf("chunk = %d\n", all->chunk);
 		size = stack_b->size;
 		ft_printf("size = %d\n", all->mid);
-		str_arr = malloc(sizeof(char *) * (stack_b->size + 1));
+		str_arr = malloc(sizeof(char *) * (stack_b->size * 2 + 1));
 		if (!str_arr)
 			exit_error_big_sort(all, NULL, 0);
 		i = 0;
@@ -74,7 +99,7 @@ void	push_a_or_rotate(t_all *all)
 			if (curr_order == all->next)
 			{
 				ft_printf("find order %d = next %d \n", curr_order, all->next);
-				str_arr[cmd_i] = ft_strdup(push_a(all));
+				str_arr[cmd_i] = ft_strdup(push_a(all, all->stack_b->head));
 				check_strdup(all, str_arr, cmd_i);
 				cmd_i++;
 				str_arr[cmd_i] = ft_strdup(rotate(all->stack_a, 'a'));
@@ -87,24 +112,21 @@ void	push_a_or_rotate(t_all *all)
 				// }
 				check_strdup(all, str_arr, cmd_i);
 				all->next++;
-				ft_printf("NEW next = [%d]\n", all->next);
+				ft_printf("pushed next order = %d into a and rotated\n",
+					curr_order);
 				ft_printf("------\n");
 			}
 			else if (curr_order >= all->mid)
 			{
-				str_arr[cmd_i] = ft_strdup(push_a(all));
+				str_arr[cmd_i] = ft_strdup(push_a(all, all->stack_b->head));
 				check_strdup(all, str_arr, cmd_i);
-				if (all->chunk == 0)
-					all->stack_a->head->chunk = 1;
-				else 
-					all->stack_a->head->chunk = all->chunk;
-				ptr_head_b = all->stack_b->head;
-				while (ptr_head_b)
-				{
-					ft_printf("stack b [%d] = %d next = %p\n",
-						ptr_head_b->order, ptr_head_b->value, ptr_head_b->next);
-					ptr_head_b = ptr_head_b->next;
-				}
+				// ptr_head_b = all->stack_b->head;
+				// while (ptr_head_b)
+				// {
+				// 	ft_printf("stack b [%d] = %d next = %p\n",
+				// 		ptr_head_b->order, ptr_head_b->value, ptr_head_b->next);
+				// 	ptr_head_b = ptr_head_b->next;
+				// }
 				ft_printf("------\n");
 			}
 			else
@@ -126,8 +148,6 @@ void	push_a_or_rotate(t_all *all)
 		free_strs(ptr_arr, cmd_i);
 		ft_printf("B SIZE BEFORE NEW LOOP = %d\n", stack_b->size);
 	}
-	all->chunk++;
-	ft_printf("chunk = %d\n", all->chunk);
 }
 
 void	push_half_to_b(t_all *all)
@@ -150,7 +170,7 @@ void	push_half_to_b(t_all *all)
 		curr_order = stack->head->order;
 		ft_printf("curr = %d\n", curr_order);
 		if (curr_order <= all->mid)
-			str_arr[i] = ft_strdup(push_b(all));
+			str_arr[i] = ft_strdup(push_b(all, all->stack_a->head));
 		else
 			str_arr[i] = ft_strdup(rotate(stack, 'a'));
 		check_strdup(all, str_arr, i);
@@ -165,24 +185,6 @@ void	push_half_to_b(t_all *all)
 	}
 	free_strs(ptr_arr, i);
 }
-
-// int	is_sorted_stack(t_llist *stack_a)
-// {
-// 	t_node	*ptr;
-// 	int		next_order;
-// 	int		curr_order;
-
-// 	ptr = stack_a->head;
-// 	while (ptr)
-// 	{
-// 		curr_order = ptr->order;
-// 		next_order = ptr->next->order;
-// 		if (curr_order > next_order)
-// 			return (0);
-// 		ptr = ptr->next;
-// 	}
-// 	return (1);
-// }
 
 int	count_chunk(t_all *all)
 {
@@ -232,14 +234,18 @@ int	calculate_mid_in_chunk(t_all *all)
 	return (mid);
 }
 
-void	stack_a_chunk(t_all *all, int chunk, int size)
+void	stack_a_chunk(t_all *all)
 {
 	t_node	*curr;
+	t_node	*ptr_head_a;
 	int		cmd_i;
 	char	**str_arr;
 	char	**ptr_arr;
 	int		i;
+	int		loop_count;
 
+	ft_printf("stack_a_chunk start: chunk=%d, count=%d\n", all->chunk,
+		count_chunk(all));
 	cmd_i = 0;
 	all->mid = calculate_mid_in_chunk(all);
 	// if chunk is empty return -> check next chunk
@@ -247,40 +253,55 @@ void	stack_a_chunk(t_all *all, int chunk, int size)
 		exit_error_big_sort(all, NULL, 0);
 	else if (all->mid == 0)
 		return ;
-	curr = all->stack_a->head;
-	str_arr = malloc(sizeof(char *) * (all->stack_a->size + 1));
+	str_arr = malloc(sizeof(char *) * (all->stack_a->size * 2 + 1));
 	if (!str_arr)
 		exit_error_big_sort(all, NULL, 0);
+	curr = all->stack_a->head;
 	// refactor to chunk elements (not all)
 	i = 0;
-	while (i < size)
+	loop_count = all->stack_a->size;
+	while (count_chunk(all) > 0 && loop_count-- > 0)
 	{
-		if (curr->chunk == chunk)
+		if (curr->chunk == all->chunk)
 		{
 			if (curr->order == all->next)
 			{
-				str_arr[cmd_i] = ft_strdup(push_a(all));
+				str_arr[cmd_i] = ft_strdup(push_a(all, curr));
 				check_strdup(all, str_arr, cmd_i);
 				cmd_i++;
 				str_arr[cmd_i] = ft_strdup(rotate(all->stack_a, 'a'));
 				check_strdup(all, str_arr, cmd_i);
 				all->next++;
+				ptr_head_a = all->stack_a->head;
+				all->stack_a->head->chunk = all->chunk;
+				while (ptr_head_a)
+				{
+					ft_printf("stack a after pa/ra [%d] = %d, next = %p\n",
+						ptr_head_a->order, ptr_head_a->value, ptr_head_a->chunk,
+						(void *)ptr_head_a->next);
+					ptr_head_a = ptr_head_a->next;
+				}
 			}
 			else if (curr->order >= all->mid)
 				str_arr[cmd_i] = ft_strdup(rotate(all->stack_a, 'a'));
 			else
-				str_arr[cmd_i] = ft_strdup(push_b(all));
+			{
+				str_arr[cmd_i] = ft_strdup(push_b(all, curr));
+			}
 			check_strdup(all, str_arr, cmd_i);
 			cmd_i++;
-			i++;
 		}
 		else
 		{
 			str_arr[cmd_i] = ft_strdup(rotate(all->stack_a, 'a'));
 			check_strdup(all, str_arr, cmd_i);
+			cmd_i++;
+			curr = curr->next;
 			i++;
 			continue ;
 		}
+		curr = curr->next;
+		i++;
 	}
 	str_arr[cmd_i] = NULL;
 	ptr_arr = str_arr;
@@ -290,6 +311,8 @@ void	stack_a_chunk(t_all *all, int chunk, int size)
 		str_arr++;
 	}
 	free_strs(ptr_arr, cmd_i);
+	ft_printf("stack_a_chunk end: chunk=%d, count=%d\n", all->chunk,
+		count_chunk(all));
 }
 
 int	calculate_mid(int max, int next)
@@ -297,46 +320,91 @@ int	calculate_mid(int max, int next)
 	return ((max - next) / 2 + next);
 }
 
-int	has_chunk(t_llist *stack_a, int chunk, int *size)
+int	has_chunk(t_all *all)
 {
 	t_node	*ptr_head;
+	int		size;
 
-	*size = 0;
-	ptr_head = stack_a->head;
+	size = 0;
+	ptr_head = all->stack_a->head;
 	while (ptr_head)
 	{
-		if (ptr_head->chunk == chunk)
-			(*size)++;
+		if (ptr_head->chunk == all->chunk)
+			size++;
 		ptr_head = ptr_head->next;
 	}
-	ft_printf("size in has chunk = %d\n", *size);
-	if (*size != 0)
-		return (1);
-	return (0);
+	ft_printf("size in has chunk = %d\n", size);
+	return (size);
 }
 // ./push_swap 9 6 3 13 7 11 2 15 1 10 5 12 4 14 8
 void	sort_big(t_all *all)
 {
-	int	size;
+	t_node	*ptr_head_a;
+	t_node	*ptr_head_b;
 
-	// t_node	*ptr_head_a;
-	// t_node	*ptr_head_b;
+	assign_chunks(all->stack_a);
+	ptr_head_a = all->stack_a->head;
+	while (ptr_head_a)
+	{
+		ft_printf("stack a before [%d] = %d, chunk = (%d), next = %p\n",
+			ptr_head_a->order, ptr_head_a->value, ptr_head_a->chunk,
+			(void *)ptr_head_a->next);
+		ptr_head_a = ptr_head_a->next;
+	}
 	ft_printf("next = %d\n", all->next);
 	ft_printf("max = %d\n", all->max);
 	ft_printf("mid = %d\n", all->mid);
 	ft_printf("chunk = %d\n", all->chunk);
 	push_half_to_b(all);
 	push_a_or_rotate(all);
-	size = 0;
-	ft_printf("chunk = %d\n", all->chunk);
-	ft_printf("current next = %d, max = %d\n", all->next, all->max);
-	while (has_chunk(all->stack_a, all->chunk, &size))
+	ptr_head_a = all->stack_a->head;
+	while (ptr_head_a)
 	{
-		ft_printf("size = %d\n", size);
-		stack_a_chunk(all, all->chunk, size);
-		push_a_or_rotate(all);
+		ft_printf("stack a after pa/ra [%d] = %d, chunk = (%d), next = %p\n",
+			ptr_head_a->order, ptr_head_a->value, ptr_head_a->chunk,
+			(void *)ptr_head_a->next);
+		ptr_head_a = ptr_head_a->next;
+	}
+	ptr_head_b = all->stack_b->head;
+	while (ptr_head_b)
+	{
+		ft_printf("stack b after pa/ra  [%d] = %d, chunk = (%d),next = %p\n",
+			ptr_head_b->order, ptr_head_b->value, ptr_head_b->chunk,
+			(void *)ptr_head_b->next);
+		ptr_head_b = ptr_head_b->next;
 	}
 	ft_printf("current next = %d, max = %d\n", all->next, all->max);
+	// while (has_chunk(all))
+	// {
+	// 	if (count_chunk(all) > 0)
+	// 	{
+	// 		ft_printf("Checking chunk %d in stack A, has_chunk = %d\n",
+	// 			all->chunk, has_chunk(all));
+			stack_a_chunk(all);
+			ptr_head_a = all->stack_a->head;
+	while (ptr_head_a)
+	{
+		ft_printf("main stack a after [%d] = %d next = %p\n", ptr_head_a->order,
+			ptr_head_a->value, ptr_head_a->next);
+		ptr_head_a = ptr_head_a->next;
+	}
+	ptr_head_b = all->stack_b->head;
+	while (ptr_head_b)
+	{
+		ft_printf("main stack b after [%d] = %d next = %p\n", ptr_head_b->order,
+			ptr_head_b->value, ptr_head_b->next);
+		ptr_head_b = ptr_head_b->next;
+	}
+			all->chunk++;
+			stack_a_chunk(all);
+	// 	}
+	// 	else
+	// 	{
+	// 		all->chunk++;
+	// 		ft_printf("chunk updated = %d\n", all->chunk);
+	// 	}
+	// }
+	// ft_printf("current next = %d, max = %d\n", all->next, all->max);
 	// ptr_head_a = all->stack_a->head;
 	// while (ptr_head_a)
 	// {

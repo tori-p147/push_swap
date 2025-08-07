@@ -6,7 +6,7 @@
 /*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:23:11 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/06 16:11:45 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/07 18:22:11 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,6 @@ t_node				*create_node(int value, int order, int chunk);
 void				free_list(t_llist *list);
 void				free_all(t_all *all);
 t_node				*remove_first(t_llist *list);
+t_node	*remove_node(t_llist *list, t_node *node);
 
 #endif

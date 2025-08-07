@@ -6,7 +6,7 @@
 /*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 15:56:57 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/04 17:01:47 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/07 18:27:17 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,12 +122,12 @@ void	sort_rest(t_all *all, int unsort_nums_amount)
 	}
 	if (!is_sorted(arr, all->stack_a->size))
 	{
-		ft_printf("%s\n", push_b(all));
+		ft_printf("%s\n", push_b(all, all->stack_a->head));
 		if (unsort_nums_amount == 3)
 			sort3(all);
 		else if (unsort_nums_amount == 4)
 			sort4(all);
-		ft_printf("%s", push_a(all));
+		ft_printf("%s", push_a(all, all->stack_b->head));
 	}
 	free(arr);
 }

@@ -6,7 +6,7 @@
 /*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 21:15:57 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/06 16:13:17 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/07 18:19:37 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,28 @@ t_node	*remove_first(t_llist *list)
 	list->size--;
 	// ft_printf("remove_front end\n");
 	return (first);
+}
+
+t_node	*remove_node(t_llist *list, t_node *node)
+{
+	if (!list || !node)
+		return (NULL);
+
+	if (node == list->head)
+		return (remove_first(list));
+
+	t_node *prev = node->prev;
+	t_node *next = node->next;
+
+	if (prev)
+		prev->next = next;
+	if (next)
+		next->prev = prev;
+
+	list->size--;
+	node->prev = NULL;
+	node->next = NULL;
+	return (node);
 }
 
 void	add_front(t_llist *list, t_node *new_node)
