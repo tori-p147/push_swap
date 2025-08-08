@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 20:56:22 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/05 22:06:25 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/08 16:38:24 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,9 @@ void	free_all(t_all *all)
 		return ;
 	free_list(all->stack_a);
 	free_list(all->stack_b);
-	all->max = 0;
 	all->mid = 0;
+	all->flag = 0;
+	all->next = 0;
 	free(all);
 }
 

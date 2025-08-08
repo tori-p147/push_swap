@@ -6,7 +6,7 @@
 /*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 21:20:54 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/06 15:29:35 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/08 16:43:01 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,21 @@ void	swap_values(t_node *first, t_node *second)
 {
 	int	tmp_value;
 	int	tmp_order;
-	int	tmp_chunk;
+	int	tmp_flag;
 
 	ft_printf("first = %p\n", first);
 	ft_printf("second = %p\n", second);
 	if(!first || !second)
 		return ;
 	tmp_value = first->value;
-	tmp_chunk = first->chunk;
+	tmp_flag = first->flag;
 	tmp_order = first->order;
 	first->value = second->value;
 	first->order = second->order;
-	first->chunk = second->chunk;
+	first->flag = second->flag;
 	second->value = tmp_value;
 	second->order = tmp_order;
-	second->chunk = tmp_chunk;
+	second->flag = tmp_flag;
 }
 
 char	*swap(t_llist *stack, char stack_name)

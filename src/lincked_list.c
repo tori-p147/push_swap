@@ -6,13 +6,13 @@
 /*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 21:15:57 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/07 18:19:37 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/08 16:38:40 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_node	*create_node(int value, int order, int chunk)
+t_node	*create_node(int value, int order)
 {
 	t_node	*new_node;
 
@@ -21,14 +21,14 @@ t_node	*create_node(int value, int order, int chunk)
 		return (NULL);
 	new_node->value = value;
 	new_node->order = order;
-	new_node->chunk = chunk;
+	new_node->flag = 0;
 	new_node->next = NULL;
 	new_node->prev = NULL;
 	// printf("new node %d created\n", new_node->value);
 	return (new_node);
 }
 
-t_node	*remove_first(t_llist *list)
+t_node	*remove_head(t_llist *list)
 {
 	t_node	*first;
 	t_node	*second;
@@ -50,30 +50,7 @@ t_node	*remove_first(t_llist *list)
 	first->prev = NULL;
 	first->next = NULL;
 	list->size--;
-	// ft_printf("remove_front end\n");
 	return (first);
-}
-
-t_node	*remove_node(t_llist *list, t_node *node)
-{
-	if (!list || !node)
-		return (NULL);
-
-	if (node == list->head)
-		return (remove_first(list));
-
-	t_node *prev = node->prev;
-	t_node *next = node->next;
-
-	if (prev)
-		prev->next = next;
-	if (next)
-		next->prev = prev;
-
-	list->size--;
-	node->prev = NULL;
-	node->next = NULL;
-	return (node);
 }
 
 void	add_front(t_llist *list, t_node *new_node)
@@ -133,9 +110,8 @@ t_all	*init_all(t_all *all, t_llist *list_a, t_llist *list_b)
 	all->stack_a = list_a;
 	all->stack_b = list_b;
 	all->next = 0;
-	all->max = get_max_order(list_a);
-	all->mid = calculate_mid(all->max, all->next);
-	all->chunk = 0;
+	all->mid = 0;
+	all->flag = 0;
 	return (all);
 }
 
@@ -153,7 +129,7 @@ t_llist	*fill_list(t_llist *list, t_array *unsorted, t_array *sorted)
 		{
 			if (unsorted->ints[i] == sorted->ints[j])
 			{
-				new_node = create_node(unsorted->ints[i], j, 0);
+				new_node = create_node(unsorted->ints[i], j);
 				if (!new_node)
 					exit_create_list_error(NULL, list, NULL, unsorted);
 				add_node(list, new_node);

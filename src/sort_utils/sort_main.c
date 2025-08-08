@@ -6,7 +6,7 @@
 /*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 15:50:24 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/07 17:12:41 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/08 16:31:43 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ void	sort_main(t_all *all)
 	ptr_head_a = all->stack_a->head;
 	while (ptr_head_a)
 	{
-		ft_printf("main stack a after [%d] = %d flag = %d\n", ptr_head_a->order, ptr_head_a->value, ptr_head_a->chunk);
+		ft_printf("main stack a after [%d] = %d flag = %d\n", ptr_head_a->order, ptr_head_a->value, ptr_head_a->flag);
 		ptr_head_a = ptr_head_a->next;
 	}
 	ptr_head_b = all->stack_b->head;
 	while (ptr_head_b)
 	{
-		ft_printf("main stack b after [%d] = %d flag = %d\n", ptr_head_b->order, ptr_head_b->value, ptr_head_b->chunk);
+		ft_printf("main stack b after [%d] = %d flag = %d\n", ptr_head_b->order, ptr_head_b->value, ptr_head_b->flag);
 		ptr_head_b = ptr_head_b->next;
 	}
 	free_all(all);

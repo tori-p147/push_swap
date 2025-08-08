@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   push.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 21:21:17 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/07 21:14:10 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/08 16:40:52 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-char	*push_a(t_all *all, t_node *curr)
+char	*push_a(t_all *all)
 {
 	t_node	*tmp;
 	// t_node *ptr_head_a;
@@ -21,7 +21,7 @@ char	*push_a(t_all *all, t_node *curr)
 	ft_printf("print push a start\n");
 	if (all->stack_b->size == 0)
 		return (NULL);
-	tmp = remove_node(all->stack_b, curr);
+	tmp = remove_head(all->stack_b);
 	// ft_printf("tmp = %d\n", tmp->value);
 	add_front(all->stack_a, tmp);
 	ft_printf("putted to a = %d\n", tmp->value);
@@ -44,7 +44,7 @@ char	*push_a(t_all *all, t_node *curr)
 	return ("pa\n");
 }
 
-char	*push_b(t_all *all, t_node *curr)
+char	*push_b(t_all *all)
 {
 	t_node	*tmp;
 	// t_node *ptr_head_a;
@@ -53,7 +53,7 @@ char	*push_b(t_all *all, t_node *curr)
 	// ft_printf("A LIST SIZE = %d\n", all->stack_a->size);
 	if (all->stack_a->size == 0)
 		return (NULL);
-	tmp = remove_node(all->stack_a, curr);
+	tmp = remove_head(all->stack_a);
 	// ft_printf("b LIST SIZE = %d\n", all->stack_b->size);
 	add_front(all->stack_b, tmp);
 	ft_printf("putted to b\n");
