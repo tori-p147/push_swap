@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 20:56:22 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/08 16:38:24 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/09 20:12:48 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,14 @@ void	free_all(t_all *all)
 	free(all);
 }
 
-void	free_strs(char **str, int i)
+void	free_strs(char **str)
 {
+	char	**ptr_str;
+
 	if (!str)
 		return ;
-	while (i-- < 0)
-		free(str[i]);
-	free(str);
+	ptr_str = str;
+	while (*str)
+		free(*(str++));
+	free(ptr_str);
 }

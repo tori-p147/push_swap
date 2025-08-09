@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rotate.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 21:19:28 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/08 13:30:01 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/09 20:24:53 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*rotate(t_llist *stack, char stack_name)
 	t_node	*last;
 	t_node	*second;
 
-	ft_printf("start rotate\n");
+	// ft_printf("start rotate\n");
 	// ft_printf("head stack a = %d\n", stack->head->order);
 	if (!stack)
 		return (NULL);
@@ -41,7 +41,7 @@ char	*rotate(t_llist *stack, char stack_name)
 	// 	ft_printf("rotated %c after [%d] = %d next = %p\n", stack_name, ptr_head->order, ptr_head->value, ptr_head->next);
 	// 	ptr_head = ptr_head->next;
 	// }
-	ft_printf("end rotate\n");
+	// ft_printf("end rotate\n");
 	if (stack_name == 'a')
 		return ("ra\n");
 	return ("rb\n");

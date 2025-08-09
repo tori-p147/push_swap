@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   swap.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 21:20:54 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/08 16:43:01 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/09 20:27:29 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	swap_values(t_node *first, t_node *second)
 	int	tmp_order;
 	int	tmp_flag;
 
-	ft_printf("first = %p\n", first);
-	ft_printf("second = %p\n", second);
+	// ft_printf("first = %p\n", first);
+	// ft_printf("second = %p\n", second);
 	if(!first || !second)
 		return ;
 	tmp_value = first->value;

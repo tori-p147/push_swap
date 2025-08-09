@@ -6,7 +6,7 @@
 /*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 17:18:40 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/09 17:52:43 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/09 20:04:50 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ typedef struct s_all	t_all;
 int	stack_contains_flag(t_llist *stack, int flag);
 int						calculate_mid_order(t_llist *stack, int flag);
 int						get_next_value(t_node *node, t_llist *list);
-int						exit_error_big_sort(t_all *all, char **strs, int i);
+int						exit_error_big_sort(t_all *all, char **strs);
 int						exit_create_list_error(t_all *all, t_llist *stack_a,
 							t_llist *stack_b, t_array *ints);
-void					free_strs(char **str, int i);
+void					free_strs(char **str);
 char					*push_a(t_all *all);
 char					*push_b(t_all *all);
 char					*rotate(t_llist *stack_a, char stack_name);

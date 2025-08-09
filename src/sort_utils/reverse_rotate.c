@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reverse_rotate.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 21:21:06 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/06 17:24:51 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/09 20:22:33 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@ char	*reverse_rotate(t_llist *stack, char stack_name)
 	if (!stack)
 		return (NULL);
 	if (stack->size == 2)
-	{
 		swap(stack, stack_name);
-		return (NULL);
-	}
 	else
 	{
 		last = stack->tail;

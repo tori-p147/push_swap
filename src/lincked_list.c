@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lincked_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 21:15:57 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/08 16:38:40 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/09 20:00:40 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,7 @@ t_llist	*create_list(t_llist *list, t_array *ints)
 	sorted.length = ints->length;
 	list = fill_list(list, &unsorted, &sorted);
 	free(unsorted.ints);
+	free(ints->ints);
 	if (!list)
 		exit_create_list_error(NULL, list, NULL, NULL);
 	return (list);

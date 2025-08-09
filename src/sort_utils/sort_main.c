@@ -6,7 +6,7 @@
 /*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 15:50:24 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/09 17:57:13 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/09 20:26:32 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	sort_main(t_all *all)
 	// t_node	*ptr_head_b;
 
 	n = all->stack_a->size;
-	printf("stack size = %d\n", n);
+	// printf("stack size = %d\n", n);
 	if (n > 5)
 		sort_big(all);
 	else if (n == 5)
