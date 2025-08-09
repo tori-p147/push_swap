@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 17:18:40 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/08 16:57:53 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/09 17:52:43 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,8 @@ typedef struct s_node	t_node;
 typedef struct s_llist	t_llist;
 typedef struct s_all	t_all;
 
-void					assign_chunks(t_llist *stack);
-void					stack_a_chunk(t_all *all);
-int						has_chunk(t_all *all);
+int	stack_contains_flag(t_llist *stack, int flag);
 int						calculate_mid_order(t_llist *stack, int flag);
-int						push_to_a_if_found_next_order(t_all *all,
-							int *next_order, char **str_arr, int cmd_i);
-void					split_stack_b(t_all *all, char stack_name, int *next);
-void					split_stack_a(t_all *all, char stack_name);
 int						get_next_value(t_node *node, t_llist *list);
 int						exit_error_big_sort(t_all *all, char **strs, int i);
 int						exit_create_list_error(t_all *all, t_llist *stack_a,
