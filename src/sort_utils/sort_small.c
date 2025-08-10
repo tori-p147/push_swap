@@ -6,7 +6,7 @@
 /*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 15:56:57 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/09 20:31:40 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/10 17:26:09 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,30 +58,30 @@ void	shift_min_to_head(t_llist *stack_a)
 	}
 }
 
-void	sort3(t_all *all)
+void	sort3(t_llist *stack, char name)
 {
 	int		first;
 	int		second;
 	int		third;
 
-	first = all->stack_a->head->order;
-	second = all->stack_a->head->next->order;
-	third = all->stack_a->head->next->next->order;
+	first = stack->head->order;
+	second = stack->head->next->order;
+	third = stack->head->next->next->order;
 	if (first > second && second > third)
 	{
-		ft_printf("%s", swap(all->stack_a, 'a'));
-		ft_printf("%s", reverse_rotate(all->stack_a, 'a'));
+		ft_printf("%s", swap(stack, name));
+		ft_printf("%s", reverse_rotate(stack, name));
 	}
 	else if (first > second && third < first)
-		ft_printf("%s", rotate(all->stack_a, 'a'));
+		ft_printf("%s", rotate(stack, name));
 	else if (first > second && third > first)
-		ft_printf("%s", swap(all->stack_a, 'a'));
+		ft_printf("%s", swap(stack, name));
 	else if (first < second && first > third)
-		ft_printf("%s", reverse_rotate(all->stack_a, 'a'));
+		ft_printf("%s", reverse_rotate(stack, name));
 	else if (first < second && first < third)
 	{
-		ft_printf("%s", swap(all->stack_a, 'a'));
-		ft_printf("%s", rotate(all->stack_a, 'a'));
+		ft_printf("%s", swap(stack, name));
+		ft_printf("%s", rotate(stack, name));
 	}
 }
 
@@ -124,7 +124,7 @@ void	sort_rest(t_all *all, int unsort_nums_amount)
 	{
 		ft_printf("%s", push_b(all));
 		if (unsort_nums_amount == 3)
-			sort3(all);
+			sort3(all->stack_a, 'a');
 		else if (unsort_nums_amount == 4)
 			sort4(all);
 		ft_printf("%s", push_a(all));

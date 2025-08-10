@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:23:11 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/08 16:37:54 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/10 15:23:57 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_all
 	t_llist			*stack_a;
 	t_llist			*stack_b;
 	int				mid;
+	int				max;
 	int				next;
 	int				flag;
 }					t_all;
@@ -80,6 +81,6 @@ t_node				*create_node(int value, int order);
 void				free_list(t_llist *list);
 void				free_all(t_all *all);
 t_node				*remove_first(t_llist *list);
-t_node	*remove_head(t_llist *list);
+t_node				*remove_head(t_llist *list);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 21:15:57 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/09 20:00:40 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/10 21:03:03 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_node	*create_node(int value, int order)
 	if (!new_node)
 		return (NULL);
 	new_node->value = value;
-	new_node->order = order;
+	new_node->order = order + 1;
 	new_node->flag = 0;
 	new_node->next = NULL;
 	new_node->prev = NULL;
@@ -109,9 +109,10 @@ t_all	*init_all(t_all *all, t_llist *list_a, t_llist *list_b)
 		exit_create_list_error(NULL, list_a, list_b, NULL);
 	all->stack_a = list_a;
 	all->stack_b = list_b;
-	all->next = 0;
+	all->next = 1;
 	all->mid = 0;
 	all->flag = 0;
+	all->max = 0;
 	return (all);
 }
 
