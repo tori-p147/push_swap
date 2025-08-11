@@ -6,7 +6,7 @@
 /*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 17:18:40 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/10 20:27:30 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/11 18:58:45 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct s_node	t_node;
 typedef struct s_llist	t_llist;
 typedef struct s_all	t_all;
 
+void	process_a_flag(t_all *all);
 void update_flag(t_all *all);
 int	is_next_blocked(t_llist *stack, int next);
 int						stack_contains_flag(t_llist *stack, int flag);
@@ -42,6 +43,7 @@ void					sort4(t_all *all);
 void					sort5(t_all *all);
 void					sort_rest(t_all *all, int unsort_nums_amount);
 // int						get_max_order(t_llist *stack_a);
+int	sort_small(t_all *all, char name);
 void					sort_big(t_all *all);
 void					sort_main(t_all *all);
 
