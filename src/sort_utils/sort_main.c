@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_main.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 15:50:24 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/10 21:26:53 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/12 11:16:29 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ void	sort_main(t_all *all)
 	int		n;
 	// t_node	*ptr_head_a;
 	// t_node	*ptr_head_b;
-	char	*str_arr;
-
-	str_arr = NULL;
+	
 	n = all->stack_a->size;
 	// printf("stack size = %d\n", n);
 	if (n > 5)

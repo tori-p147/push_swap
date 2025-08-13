@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_big.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 15:22:36 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/11 20:00:43 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/13 12:39:09 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ int	first_process(t_all *all)
 	char	**ptr_arr;
 
 	all->max = all->stack_a->size;
-	ft_printf("NEW MAX %d NEXT %d\n", all->max, all->next);
+	// ft_printf("NEW MAX %d NEXT %d\n", all->max, all->next);
 	// if (all->flag != 0)
 	// 	all->mid = all->max / 2 + all->next;
 	all->mid = all->max / 2 + all->next;
-	ft_printf("mid in first proc %d \n", all->mid);
+	// ft_printf("mid in first proc %d \n", all->mid);
 	str_arr = malloc(sizeof(char *) * (all->stack_a->size + 1));
 	if (!str_arr)
 		exit_error_big_sort(all, NULL);
@@ -95,7 +95,6 @@ int	first_process(t_all *all)
 void	process_a2(t_all *all)
 {
 	t_llist	*stack;
-	t_node	*curr;
 	int		cmd_i;
 	int		size;
 	char	**ptr_arr;
@@ -106,7 +105,7 @@ void	process_a2(t_all *all)
 	cmd_i = 0;
 	all->max = all->stack_a->size;
 	all->mid = all->stack_a->size / 2 + all->next;
-	ft_printf("curr mid %d\n", all->mid);
+	// ft_printf("curr mid %d\n", all->mid);
 	if (all->mid == 0)
 		return ;
 	str_arr = malloc(sizeof(char *) * (all->stack_a->size + 1));
@@ -114,16 +113,14 @@ void	process_a2(t_all *all)
 		exit_error_big_sort(all, NULL);
 	stack = all->stack_a;
 	size = stack->size - all->next;
-	curr = all->stack_a->head;
-	ft_printf("FINAL SIZE %d\n", size);
+	// ft_printf("FINAL stack size = %d - next %d\n", size, all->next);
 	while (cmd_i < size)
 	{
-		ft_printf("curr = [%d], flag = %d\n", curr->order, curr->flag);
+		// ft_printf("curr = [%d], flag = %d\n", curr->order, curr->flag);
 		str_arr[cmd_i] = ft_strdup(push_b(all));
 		all->stack_b->head->flag = all->flag;
 		check_strdup(all, str_arr, cmd_i);
 		cmd_i++;
-		curr = all->stack_a->head;
 	}
 	str_arr[cmd_i] = NULL;
 	ptr_arr = str_arr;
@@ -142,29 +139,42 @@ void	process_a_flag(t_all *all)
 	char	**str_arr;
 	char	**ptr_arr;
 
+	// if (!stack_contains_next(all->stack_a, all->flag, all->next))
+	// 	move_next_to_top(all->stack_a, all->next);
 	cmd_i = 0;
-	ft_printf("loop %d result = %d, flag = %d\n", cmd_i, all->next, all->flag);
+	// ft_printf("loop %d result = %d, flag = %d\n", cmd_i, all->next, all->flag);
 	cmd_i = 0;
 	str_arr = malloc(sizeof(char *) * (all->stack_a->size + 1));
 	if (!str_arr)
 		exit_error_big_sort(all, NULL);
 	curr = all->stack_a->head;
-	while (curr && curr->flag == all->flag)
+	while (curr)
 	{
+		// Обрабатываем элемент с order == next вне зависимости от флага
 		if (curr->order == all->next)
 		{
 			str_arr[cmd_i] = ft_strdup(rotate(all->stack_a, 'a'));
 			all->next++;
 			all->stack_a->tail->flag = 0;
+			cmd_i++;
+			curr = all->stack_a->head;
+			continue ;
+		}
+		// Если элемент с нужным флагом - пушим в B
+		if (curr->flag == all->flag)
+		{
+			// ft_printf("curr = [%d], flag = %d\n", curr->order, curr->flag);
+			str_arr[cmd_i] = ft_strdup(push_b(all));
+			check_strdup(all, str_arr, cmd_i);
+			cmd_i++;
+			curr = all->stack_a->head;
 		}
 		else
 		{
-			ft_printf("curr = [%d], flag = %d\n", curr->order, curr->flag);
-			str_arr[cmd_i] = ft_strdup(push_b(all));
+			// Если элемент не с текущим флагом и не next — выходим из цикла,
+			//	чтобы не застрять
+			break ;
 		}
-		check_strdup(all, str_arr, cmd_i);
-		cmd_i++;
-		curr = all->stack_a->head;
 	}
 	str_arr[cmd_i] = NULL;
 	ptr_arr = str_arr;
@@ -195,12 +205,12 @@ int	count_flag_elements(t_llist *stack, int flag)
 
 int	calculate_mid_order(t_all *all, t_llist *stack)
 {
-	ft_printf("max %d\n", all->max);
+	// ft_printf("max %d\n", all->max);
 	if (!stack || stack->size == 0)
 		return (0);
 	if (all->max <= all->next)
 		return (all->next);
-	ft_printf("mid  = %d - %d / 2 + %d\n", all->max, all->next, all->next);
+	// ft_printf("mid  = %d - %d / 2 + %d\n", all->max, all->next, all->next);
 	return (((all->max - all->next) + 1) / 2 + all->next);
 }
 
@@ -235,11 +245,11 @@ void	process_b(t_all *all)
 	// char	**str_arr;
 	// char	**ptr_arr;
 	current_flag = all->flag;
-	ft_printf("flag in b = %d\n", current_flag);
+	// ft_printf("flag in b = %d\n", current_flag);
 	all->max = all->mid;
 	all->mid = calculate_mid_order(all, all->stack_b);
-	ft_printf("mid in b process %d\n", all->mid);
-	ft_printf("flag %d\n", all->flag);
+	// ft_printf("mid in b process %d\n", all->mid);
+	// ft_printf("flag %d\n", all->flag);
 	if (all->mid == 0)
 		return ;
 	str_arr = malloc(sizeof(char *) * (all->stack_b->size * 2 + 1));
@@ -247,20 +257,19 @@ void	process_b(t_all *all)
 		exit_error_big_sort(all, NULL);
 	curr = all->stack_b->head;
 	flag_nodes = count_flag_elements(all->stack_b, current_flag);
-	ft_printf("count_flag_elements result %d\n", flag_nodes);
+	// ft_printf("count_flag_elements result %d\n", flag_nodes);
 	cmd_i = 0;
 	all->flag++;
 	while (flag_nodes > 0)
 	{
-		ft_printf("count flag nodes %d in while loop\n", flag_nodes);
+		// ft_printf("count flag nodes %d in while loop\n", flag_nodes);
 		curr = all->stack_b->head;
-		ft_printf("NEXT = [%d] MAX =%d MID =%d all.flag =%d curr = [%d] flag =%d next =%p\n",
-			all->next, all->max, all->mid, all->flag, curr->order, curr->flag,
-			curr->next);
+		// ft_printf("NEXT = [%d] MAX =%d MID =%d all.flag =%d curr = [%d] flag =%d next =%p\n",
+		// 	all->next, all->max, all->mid, all->flag, curr->order, curr->flag,
+		// 	curr->next);
 		if (curr->order == all->next)
 		{
-			if (curr->flag == current_flag)
-				flag_nodes--;
+			flag_nodes--;
 			str_arr[cmd_i] = ft_strdup(push_a(all));
 			check_strdup(all, str_arr, cmd_i);
 			cmd_i++;
@@ -271,6 +280,14 @@ void	process_b(t_all *all)
 			cmd_i++;
 		}
 		else if (curr->flag == current_flag && curr->order >= all->mid)
+		{
+			str_arr[cmd_i] = ft_strdup(push_a(all));
+			check_strdup(all, str_arr, cmd_i);
+			all->stack_a->head->flag = all->flag;
+			flag_nodes--;
+			cmd_i++;
+		}
+		else if (curr->flag == current_flag && curr->order < all->mid)
 		{
 			str_arr[cmd_i] = ft_strdup(push_a(all));
 			check_strdup(all, str_arr, cmd_i);
@@ -295,7 +312,7 @@ void	process_b(t_all *all)
 		str_arr++;
 	}
 	free_strs(ptr_arr);
-	ft_printf("end process b\n");
+	// ft_printf("end process b\n");
 }
 
 int	stack_contains_flag(t_llist *stack, int flag)
@@ -312,67 +329,65 @@ int	stack_contains_flag(t_llist *stack, int flag)
 	return (0);
 }
 
+int	stack_contains_next(t_llist *stack, int flag, int next)
+{
+	t_node	*ptr_head;
+
+	ptr_head = stack->head;
+	while (ptr_head && ptr_head->flag == flag)
+	{
+		if (ptr_head->order == next)
+			return (1);
+		ptr_head = ptr_head->next;
+	}
+	return (0);
+}
+
 int	sort_small(t_all *all, char name)
 {
-	int		size;
 	t_llist	*stack;
-	t_node	*curr;
-	t_node	*ptr_head_a;
-	t_node	*ptr_head_b;
+	int		first;
+	int		second;
+	int		third;
 
-	stack = all->stack_b;
-	size = all->stack_b->size;
-	curr = all->stack_b->head;
-	if (size == 3)
-		sort3(stack, name);
-	else if (size == 2
-		&& all->stack_b->head->order < all->stack_b->head->next->order)
+	stack = all->stack_a;
+	first = stack->head->order;
+	second = stack->head->next->order;
+	third = stack->head->next->next->order;
+	// ft_printf("rest stack a %d\n", all->stack_a->size - all->next);
+	if (all->stack_a->size - all->next == 2 && (first > second
+			&& second > third))
 	{
-		ft_printf("start swap 2 sorted\n");
-		while (curr)
-		{
-			ft_printf("%s", push_a(all));
-			ft_printf("%s", rotate(all->stack_a, 'a'));
-			all->next++;
-			all->stack_a->tail->flag = 0;
-			curr = curr->next;
-		}
-	}
-	else if (size == 2
-		&& all->stack_b->head->order > all->stack_b->head->next->order)
-	{
-		ft_printf("start swap 2\n");
-		swap(stack, name);
-		while (curr)
-		{
-			ft_printf("%s", push_a(all));
-			ft_printf("%s", rotate(all->stack_a, 'a'));
-			all->next++;
-			all->stack_a->tail->flag = 0;
-			curr = curr->next;
-		}
-		ptr_head_a = all->stack_a->head;
-		while (ptr_head_a)
-		{
-			ft_printf("stack a before proess ps b[%d] =%d flag =%d\n ",
-				ptr_head_a->order, ptr_head_a->value, ptr_head_a->flag);
-			ptr_head_a = ptr_head_a->next;
-		}
-		ptr_head_b = all->stack_b->head;
-		while (ptr_head_b)
-		{
-			ft_printf("stack b before ps b[%d] = %d flag =%d\n ",
-				ptr_head_b->order, ptr_head_b->value, ptr_head_b->flag);
-			ptr_head_b = ptr_head_b->next;
-		}
-	}
-	else if (size == 1)
-	{
+		ft_printf("%s", rotate(stack, name));
+		ft_printf("%s", swap(stack, name));
 		ft_printf("%s", push_b(all));
-		ft_printf("%s", rotate(all->stack_a, 'a'));
+		ft_printf("%s", push_b(all));
+		ft_printf("%s", reverse_rotate(stack, name));
+		ft_printf("%s", push_a(all));
+		ft_printf("%s", push_a(all));
+		ft_printf("%s", rotate(stack, name));
+		ft_printf("%s", rotate(stack, name));
+		ft_printf("%s", rotate(stack, name));
 	}
-	if (size == 0)
-		return (1);
+	else if (all->stack_a->size - all->next == 1)
+	{
+		ft_printf("%s", swap(stack, name));
+		ft_printf("%s", rotate(stack, name));
+		ft_printf("%s", rotate(stack, name));
+	}
+	else if (all->stack_a->size - all->next == 0)
+		ft_printf("%s", rotate(stack, name));
+	// else if (first > second && third < first)
+	// 	ft_printf("%s", rotate(stack, name));
+	// else if (first > second && third > first)
+	// 	ft_printf("%s", swap(stack, name));
+	// else if (first < second && first > third)
+	// 	ft_printf("%s", reverse_rotate(stack, name));
+	// else if (first < second && first < third)
+	// {
+	// 	ft_printf("%s", swap(stack, name));
+	// 	ft_printf("%s", rotate(stack, name));
+	// }
 	return (0);
 }
 
@@ -382,91 +397,80 @@ void	sort_big(t_all *all)
 	t_node	*ptr_head_a;
 	t_node	*ptr_head_b;
 	int		i;
+	int		size;
 
+	size = all->stack_a->size;
 	i = 0;
 	// int i;
 	// i = 0;
-	// while (all->stack_b->size != 0 || stack_contains_flag(all->stack_a,
-	// 		all->flag))
-	// {
 	// ft_printf("current next = %d, flag = %d\n", all->next, all->flag);
-	first_process(all);
-	ft_printf("flag after first ps %d\n", all->flag);
-	ptr_head_a = all->stack_a->head;
-	ft_printf("loop %d result = %d, flag = %d\n", i, all->next, all->flag);
-	while (ptr_head_a)
+	while (all->next <= size)
 	{
-		ft_printf("stack a after first b[%d] =%d flag =%d\n ",
-			ptr_head_a->order, ptr_head_a->value, ptr_head_a->flag);
-		ptr_head_a = ptr_head_a->next;
+		ft_printf("current next = %d, flag = %d\n", all->next, all->flag);
+		ft_printf("loop %d result = %d, flag = %d\n", i, all->next, all->flag);
+		ptr_head_a = all->stack_a->head;
+		while (ptr_head_a)
+		{
+			ft_printf("stack a before %d loop [%d] =%d flag =%d\n ", i,
+				ptr_head_a->order, ptr_head_a->value, ptr_head_a->flag);
+			ptr_head_a = ptr_head_a->next;
+		}
+		ptr_head_b = all->stack_b->head;
+		while (ptr_head_b)
+		{
+			ft_printf("stack b before %d loop [%d] = %d flag =%d\n ", i,
+				ptr_head_b->order, ptr_head_b->value, ptr_head_b->flag);
+			ptr_head_b = ptr_head_b->next;
+		}
+		if (all->next == 1)
+			first_process(all);
+		if (count_flag_elements(all->stack_b, all->flag) > 0)
+			process_b(all);
+		ptr_head_a = all->stack_a->head;
+		while (ptr_head_a)
+		{
+			ft_printf("stack a after ps B %d loop [%d] =%d flag =%d\n ", i,
+				ptr_head_a->order, ptr_head_a->value, ptr_head_a->flag);
+			ptr_head_a = ptr_head_a->next;
+		}
+		ptr_head_b = all->stack_b->head;
+		while (ptr_head_b)
+		{
+			ft_printf("stack b after ps B%d loop [%d] = %d flag =%d\n ", i,
+				ptr_head_b->order, ptr_head_b->value, ptr_head_b->flag);
+			ptr_head_b = ptr_head_b->next;
+		}
+		if (count_flag_elements(all->stack_a, all->flag) != 0)
+			process_a_flag(all);
+		// ft_printf("size %d - all->next %d =  %d\n", size, all->next, size
+		// 	- all->next);
+		if (size - all->next > 3)
+		{
+			// ft_printf("before ps a2 size - all->next = %d\n", size - all->next);
+			process_a2(all);
+		}
+		else if (count_flag_elements(all->stack_b, all->flag) == 0)
+			{
+				// ft_printf("small sort HEAD %d\n", all->stack_a->head->order);
+				sort_small(all, 'a');
+				break ;
+		}
+		i++;
 	}
-	ptr_head_b = all->stack_b->head;
-	while (ptr_head_b)
-	{
-		ft_printf("stack b after first b[%d] = %d flag =%d\n ",
-			ptr_head_b->order, ptr_head_b->value, ptr_head_b->flag);
-		ptr_head_b = ptr_head_b->next;
-	}
-	process_b(all);
-	process_a_flag(all);
-	process_b(all);
-	process_a_flag(all);
-	ptr_head_a = all->stack_a->head;
-	ft_printf("loop %d result = %d, flag = %d\n", i, all->next, all->flag);
-	while (ptr_head_a)
-	{
-		ft_printf("stack a before proess ps b[%d] =%d flag =%d\n ",
-			ptr_head_a->order, ptr_head_a->value, ptr_head_a->flag);
-		ptr_head_a = ptr_head_a->next;
-	}
-	ptr_head_b = all->stack_b->head;
-	while (ptr_head_b)
-	{
-		ft_printf("stack b before ps b[%d] = %d flag =%d\n ", ptr_head_b->order,
-			ptr_head_b->value, ptr_head_b->flag);
-		ptr_head_b = ptr_head_b->next;
-	}
-	
-		process_b(all);
-	process_a2(all);
-	// if (!sort_small(all, 'b'))
-		process_b(all);
-	// process_a2(all);
-	// if (!sort_small(all, 'b'))
-	// 	process_b(all);
-	// process_a_flag(all);
+	ft_printf("size %d - all->next %d =  %d\n", size, all->next, size
+			- all->next);
 	// ptr_head_a = all->stack_a->head;
 	// while (ptr_head_a)
 	// {
-	// 	ft_printf("stack a before proess a [%d] = %d flag = %d\n ",
+	// 	ft_printf("stack a after %d loop [%d] =%d flag =%d\n ", i,
 	// 		ptr_head_a->order, ptr_head_a->value, ptr_head_a->flag);
 	// 	ptr_head_a = ptr_head_a->next;
 	// }
 	// ptr_head_b = all->stack_b->head;
 	// while (ptr_head_b)
 	// {
-	// 	ft_printf("stack b before proess a [%d] = %d flag = %d\n ",
+	// 	ft_printf("stack b after %d loop [%d] = %d flag =%d\n ", i,
 	// 		ptr_head_b->order, ptr_head_b->value, ptr_head_b->flag);
 	// 	ptr_head_b = ptr_head_b->next;
-	// }
-	// ft_printf("flag = %d\n", all->flag);
-	// ft_printf("current next = %d, flag = %d\n", all->next, all->flag);
-	// if (!sort_small_b(all))
-	ptr_head_a = all->stack_a->head;
-	ft_printf("loop %d result = %d, flag = %d\n", i, all->next, all->flag);
-	while (ptr_head_a)
-	{
-		ft_printf("stack a after proess a flag el[%d] =%d flag =%d\n ",
-			ptr_head_a->order, ptr_head_a->value, ptr_head_a->flag);
-		ptr_head_a = ptr_head_a->next;
-	}
-	ptr_head_b = all->stack_b->head;
-	while (ptr_head_b)
-	{
-		ft_printf("stack b after proess a flag el[%d] = %d flag =%d\n ",
-			ptr_head_b->order, ptr_head_b->value, ptr_head_b->flag);
-		ptr_head_b = ptr_head_b->next;
-	}
-	// process_a(all);
 	// }
 }

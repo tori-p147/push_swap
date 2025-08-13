@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lincked_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 21:15:57 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/10 21:03:03 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/12 16:09:08 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ t_all	*init_all(t_all *all, t_llist *list_a, t_llist *list_b)
 	all->next = 1;
 	all->mid = 0;
 	all->flag = 0;
-	all->max = 0;
+	all->max = list_a->size;
 	return (all);
 }
 
