@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_small.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 15:56:57 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/10 17:26:09 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/13 18:20:19 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ void	shift_min_to_head(t_llist *stack_a)
 
 void	sort3(t_llist *stack, char name)
 {
-	int		first;
-	int		second;
-	int		third;
+	int	first;
+	int	second;
+	int	third;
 
 	first = stack->head->order;
 	second = stack->head->next->order;

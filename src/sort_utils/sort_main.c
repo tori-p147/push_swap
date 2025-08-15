@@ -6,11 +6,12 @@
 /*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 15:50:24 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/12 11:16:29 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/14 16:06:49 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
 
 void	sort_main(t_all *all)
 {

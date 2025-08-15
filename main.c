@@ -6,13 +6,12 @@
 /*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:17:34 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/04 18:34:02 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/14 16:12:28 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-//delete custom error msg
 int	main(int argc, char **argv)
 {
 	t_llist	*list_a;

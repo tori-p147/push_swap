@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shuffle.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 17:42:44 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/09 18:43:36 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/15 19:13:26 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	shuffle(int *array, int n)
 int	main(void)
 {
 	int	N;
-	int	arr[100];
+	int	arr[500];
 
 	N = 100;
 	for (int i = 0; i < N; i++)

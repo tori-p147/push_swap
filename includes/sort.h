@@ -6,7 +6,7 @@
 /*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 17:18:40 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/12 11:45:22 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/15 18:38:45 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ typedef struct s_node	t_node;
 typedef struct s_llist	t_llist;
 typedef struct s_all	t_all;
 
-int						stack_contains_next(t_llist *stack, int flag, int next);
+int	stack_contains_next_with_0_flag(t_llist *stack, int next, int flag);
 void					process_a_flag(t_all *all);
 void					update_flag(t_all *all);
 int						is_next_blocked(t_llist *stack, int next);
 int						stack_contains_flag(t_llist *stack, int flag);
-int						calculate_mid_order(t_all *all, t_llist *stack);
+int calculate_mid_order_for_flag(t_llist *stack, int flag, int next);
 int						get_next_value(t_node *node, t_llist *list);
 int						exit_error_big_sort(t_all *all, char **strs);
 int						exit_create_list_error(t_all *all, t_llist *stack_a,
@@ -47,5 +47,4 @@ void					sort_rest(t_all *all, int unsort_nums_amount);
 int						sort_small(t_all *all, char name);
 void					sort_big(t_all *all);
 void					sort_main(t_all *all);
-
 #endif
