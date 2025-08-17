@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_small.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 15:56:57 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/13 18:20:19 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/16 13:56:46 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,23 @@ void	shift_min_to_head(t_llist *stack_a)
 	if (min_index <= stack_a->size / 2)
 	{
 		while (min_index-- > 0)
-			ft_printf("%s", rotate(stack_a, 'a'));
+		{
+			rotate(stack_a);
+			ft_printf("%s", RA);
+		}
 	}
 	else
 	{
 		rra_times = stack_a->size - min_index;
 		while (rra_times-- > 0)
-			ft_printf("%s", reverse_rotate(stack_a, 'a'));
+		{
+			reverse_rotate(stack_a);
+			ft_printf("%s", RRA);
+		}
 	}
 }
 
-void	sort3(t_llist *stack, char name)
+void	sort3(t_llist *stack)
 {
 	int	first;
 	int	second;
@@ -69,19 +75,32 @@ void	sort3(t_llist *stack, char name)
 	third = stack->head->next->next->order;
 	if (first > second && second > third)
 	{
-		ft_printf("%s", swap(stack, name));
-		ft_printf("%s", reverse_rotate(stack, name));
+		swap(stack);
+		ft_printf("%s", SA);
+		reverse_rotate(stack);
+		ft_printf("%s", RRA);
 	}
 	else if (first > second && third < first)
-		ft_printf("%s", rotate(stack, name));
+	{
+		rotate(stack);
+		ft_printf("%s", RA);
+	}
 	else if (first > second && third > first)
-		ft_printf("%s", swap(stack, name));
+	{
+		swap(stack);
+		ft_printf("%s", SA);
+	}
 	else if (first < second && first > third)
-		ft_printf("%s", reverse_rotate(stack, name));
+	{
+		reverse_rotate(stack);
+		ft_printf("%s", RRA);
+	}
 	else if (first < second && first < third)
 	{
-		ft_printf("%s", swap(stack, name));
-		ft_printf("%s", rotate(stack, name));
+		swap(stack);
+		ft_printf("%s", SA);
+		rotate(stack);
+		ft_printf("%s", RA);
 	}
 }
 
@@ -122,12 +141,12 @@ void	sort_rest(t_all *all, int unsort_nums_amount)
 	}
 	if (!is_sorted(arr, all->stack_a->size))
 	{
-		ft_printf("%s", push_b(all));
+		push_b(all);
 		if (unsort_nums_amount == 3)
-			sort3(all->stack_a, 'a');
+			sort3(all->stack_a);
 		else if (unsort_nums_amount == 4)
 			sort4(all);
-		ft_printf("%s", push_a(all));
+		push_a(all);
 	}
 	free(arr);
 }

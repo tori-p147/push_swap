@@ -6,7 +6,7 @@
 /*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 21:20:54 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/09 20:27:29 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/16 13:53:53 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,14 @@ void	swap_values(t_node *first, t_node *second)
 	second->flag = tmp_flag;
 }
 
-char	*swap(t_llist *stack, char stack_name)
+void	swap(t_llist *stack)
 {
 	t_node	*first;
 	t_node	*second;
 
 	if (!stack || stack->size < 2)
-		return (NULL);
+		return ;
 	first = stack->head;
 	second = stack->head->next;
 	swap_values(first, second);
-	if (stack_name == 'a')
-		return ("sa\n");
-	return ("sb\n");
 }

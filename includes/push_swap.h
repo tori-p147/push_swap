@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:23:11 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/14 16:06:29 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/17 13:14:18 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,25 @@
 # include "sort.h"
 # include <stdlib.h>
 # include <unistd.h>
+
+# define SA "sa\n"
+# define SB "sb\n"
+# define PA "pa\n"
+# define PB "pb\n"
+# define RR "rr\n"
+# define RA "ra\n"
+# define RB "rb\n"
+# define RR "rr\n"
+# define RRA "rra\n"
+# define RRB "rrb\n"
+
+typedef struct s_cmd_list
+{
+	int				cmd_i;
+	int				capacity;
+	char			**str_arr;
+
+}					t_cmd_list;
 
 typedef struct s_node
 {

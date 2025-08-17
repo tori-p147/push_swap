@@ -6,13 +6,13 @@
 /*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 21:19:28 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/09 20:24:53 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/16 13:51:02 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-char	*rotate(t_llist *stack, char stack_name)
+void	rotate(t_llist *stack)
 {
 	t_node	*first;
 	t_node	*last;
@@ -21,7 +21,7 @@ char	*rotate(t_llist *stack, char stack_name)
 	// ft_printf("start rotate\n");
 	// ft_printf("head stack a = %d\n", stack->head->order);
 	if (!stack)
-		return (NULL);
+		return ;
 	if (stack->size > 1)
 	{
 		first = stack->head;
@@ -42,7 +42,4 @@ char	*rotate(t_llist *stack, char stack_name)
 	// 	ptr_head = ptr_head->next;
 	// }
 	// ft_printf("end rotate\n");
-	if (stack_name == 'a')
-		return ("ra\n");
-	return ("rb\n");
 }
