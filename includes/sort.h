@@ -6,7 +6,7 @@
 /*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 17:18:40 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/17 12:45:15 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/19 21:05:41 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct s_node		t_node;
 typedef struct s_llist		t_llist;
 typedef struct s_all		t_all;
 
+void						conbine_cmd_list(t_cmd_list *cmd_list);
 void						check_capacity(t_all *all, t_cmd_list *cmd_list);
 int							stack_contains_next_with_0_flag(t_llist *stack,
 								int next, int flag);
@@ -43,6 +44,7 @@ void						reverse_rotate(t_llist *stack);
 void						swap_values(t_node *first, t_node *second);
 void						swap(t_llist *stack);
 int							get_min_index(t_llist *stack_a);
+int							get_max_index(t_llist *stack_b);
 void						shift_min_to_head(t_llist *stack_a);
 void						sort3(t_llist *stack);
 void						sort4(t_all *all);

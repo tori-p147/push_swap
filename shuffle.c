@@ -6,7 +6,7 @@
 /*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 17:42:44 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/17 12:50:51 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/19 20:01:49 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	main(void)
 	int	N;
 	int	arr[500];
 
-	N = 500;
+	N = 100;
 	for (int i = 0; i < N; i++)
 		arr[i] = i + 1;
 	srand(time(NULL));
