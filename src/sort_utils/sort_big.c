@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_big.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 15:22:36 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/20 19:28:14 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/20 22:24:45 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,7 +262,6 @@ void	move_to_top_b(t_all *all, t_cmd_list *cmd_list)
 {
 	t_node	*curr;
 	int		next_pos;
-	int		rotate_times;
 
 	if (all->stack_b->size == 2)
 	{
@@ -280,17 +279,9 @@ void	move_to_top_b(t_all *all, t_cmd_list *cmd_list)
 		curr = curr->next;
 	}
 	if (next_pos <= all->stack_b->size / 2)
-	{
-		rotate_times = next_pos;
-		while (rotate_times-- > 0)
-			do_rotate_b(all, cmd_list);
-	}
+		do_rotate_b(all, cmd_list);
 	else
-	{
-		rotate_times = all->stack_b->size - next_pos;
-		while (rotate_times-- > 0)
-			do_reverse_rotate_b(all, cmd_list);
-	}
+		do_reverse_rotate_b(all, cmd_list);
 }
 
 int	is_next_found(t_llist *stack, int next)
@@ -544,7 +535,7 @@ void	combine_cmd_list(t_cmd_list *cmd_list)
 			i++;
 	}
 }
-
+//./push_swap 30 97 4 8 13 26 90 73 34 36 38 79 46 28 2 100 52 89 35 99 39 63 54 41 31 65 70 51 77 27 59 85 96 66 58 24 14 67 61 80 45 5 55 23 17 74 18 50 72 37 9 15 98 20 33 91 84 93 62 3 82 78 42 69 16 92 64 95 94 68 10 7 22 1 60 6 75 81 86 76 71 25 12 57 44 83 56 43 32 19 11 29 87 48 49 88 21 53 40 47
 // ./push_swap 2 9 1 20 12 14 5 7 16 11 6 3 10 13 17 18 19 4 8 15
 void	sort_big(t_all *all)
 {
@@ -587,9 +578,11 @@ void	sort_big(t_all *all)
 	cmd_list.str_arr[cmd_list.cmd_i] = NULL;
 	ptr_arr = cmd_list.str_arr;
 	combine_cmd_list(&cmd_list);
-	// while (*cmd_list.str_arr)
-	// {
-	// 	ft_printf("%s", *cmd_list.str_arr);
+	while (*cmd_list.str_arr)
+	{
+		ft_printf("%s", *cmd_list.str_arr);
+		cmd_list.str_arr++;
+	}
 	ft_printf("cmds = %d\n", cmd_list.cmd_i);
 	free_strs(ptr_arr);
 }
