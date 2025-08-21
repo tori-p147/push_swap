@@ -6,7 +6,7 @@
 /*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 15:22:36 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/21 17:05:06 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/21 19:43:18 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -302,7 +302,7 @@ void	move_to_top_b(t_all *all, t_cmd_list *cmd_list)
 		next_pos++;
 		curr = curr->next;
 	}
-	if (next_pos <= all->stack_b->size / 2)
+	if (next_pos <= all->stack_b->size / 1.5)
 		do_rotate_b(all, cmd_list);
 	else
 		do_reverse_rotate_b(all, cmd_list);
@@ -331,9 +331,6 @@ void	process_b(t_all *all, t_cmd_list *cmd_list)
 	int		current_flag;
 	int		size;
 	int		i;
-	int pa_times;
-
-	pa_times = 0;
 
 	i = 0;
 	all->flag = all->stack_b->head->flag;
@@ -348,8 +345,7 @@ void	process_b(t_all *all, t_cmd_list *cmd_list)
 		size = count_flag_elements(all->stack_b, current_flag);
 		while (size-- > 0)
 		{
-			all->mid = calculate_mid_order_for_flag(all->stack_b,
-					current_flag,
+			all->mid = calculate_mid_order_for_flag(all->stack_b, current_flag,
 					all->next);
 			curr = all->stack_b->head;
 			if (!curr)
@@ -361,8 +357,8 @@ void	process_b(t_all *all, t_cmd_list *cmd_list)
 			{
 				do_push_a(all, cmd_list);
 				all->next++;
-				if (is_next_found(all->stack_b, all->next))
-					move_to_top_b(all, cmd_list);
+				// if (is_next_found(all->stack_b, all->next))
+				// 	move_to_top_b(all, cmd_list);
 				do_rotate_a(all, cmd_list);
 				// if (is_next_found(all->stack_b, all->next))
 				// 	move_to_top_b_rotate(all, cmd_list);
@@ -539,19 +535,34 @@ void	print_state(t_all *all, char *msg, int i)
 	}
 }
 
+int	get_min_count(int pb_count, int pa_count)
+{
+	if (pa_count > pb_count)
+		return (pb_count);
+	else
+		return (pa_count);
+}
+
 void	combine_cmd_list(t_cmd_list *cmd_list)
 {
 	int	i;
 	int	j;
+	int	pb_count;
+	int	pa_count;
+	int	shift;
+	int	del;
+	int	tail;
 
 	i = 1;
+	pb_count = 0;
+	pa_count = 0;
 	while (i < cmd_list->cmd_i)
 	{
 		if ((ft_strncmp(cmd_list->str_arr[i], "ra\n", 3) == 0
-			&& ft_strncmp(cmd_list->str_arr[i - 1], "rb\n", 3) == 0) || (ft_strncmp(cmd_list->str_arr[i], "rb\n", 3) == 0
-			&& ft_strncmp(cmd_list->str_arr[i - 1], "ra\n", 3) == 0))
+				&& ft_strncmp(cmd_list->str_arr[i - 1], "rb\n", 3) == 0)
+			|| (ft_strncmp(cmd_list->str_arr[i], "rb\n", 3) == 0
+				&& ft_strncmp(cmd_list->str_arr[i - 1], "ra\n", 3) == 0))
 		{
-			ft_printf("cms find\n");
 			free(cmd_list->str_arr[i - 1]);
 			cmd_list->str_arr[i - 1] = ft_strdup("rr\n");
 			free(cmd_list->str_arr[i]);
@@ -564,10 +575,63 @@ void	combine_cmd_list(t_cmd_list *cmd_list)
 			cmd_list->str_arr[j] = NULL;
 			cmd_list->cmd_i--;
 		}
+		else if (ft_strncmp(cmd_list->str_arr[i], "pa\n", 3) == 0
+			&& ft_strncmp(cmd_list->str_arr[i - 1], "pb\n", 3) == 0)
+		{
+			free(cmd_list->str_arr[i - 1]);
+			free(cmd_list->str_arr[i]);
+			j = i - 1;
+			while (j < cmd_list->cmd_i - 1)
+			{
+				cmd_list->str_arr[j] = cmd_list->str_arr[j + 2];
+				j++;
+			}
+			cmd_list->str_arr[j] = NULL;
+			cmd_list->cmd_i -= 2;
+		}
+		else if (ft_strncmp(cmd_list->str_arr[i], "pb\n", 3) == 0)
+		{
+			pb_count = 1;
+			pa_count = 0;
+			j = i;
+			ft_printf("cmd find\n");
+			while (j < cmd_list->cmd_i)
+			{
+				if (ft_strncmp(cmd_list->str_arr[j], "pb\n", 3) == 0)
+					pb_count++;
+				else if (ft_strncmp(cmd_list->str_arr[j], "pa\n", 3) == 0)
+					pa_count++;
+				else
+					break ;
+				j++;
+			}
+			shift = get_min_count(pb_count, pa_count) * 2;
+			if (shift > 0)
+			{
+				del = 0;
+				while (del < shift)
+				{
+					free(cmd_list->str_arr[i + del]);
+					del++;
+				}
+				ft_memmove(&cmd_list->str_arr[i], &cmd_list->str_arr[i + shift],
+					sizeof(char *) * (cmd_list->cmd_i - (i + shift)));
+				tail = cmd_list->cmd_i - shift;
+				while (tail < cmd_list->cmd_i)
+				{
+					cmd_list->str_arr[tail] = NULL;
+					tail++;
+				}
+				cmd_list->cmd_i -= shift;
+			}
+			else
+				i++;
+		}
 		else
 			i++;
 	}
 }
+
 //./push_swap 30 97 4 8 13 26 90 73 34 36 38 79 46 28 2 100 52 89 35 99 39 63 54 41 31 65 70 51 77 27 59 85 96 66 58 24 14 67 61 80 45 5 55 23 17 74 18 50 72 37 9 15 98 20 33 91 84 93 62 3 82 78 42 69 16 92 64 95 94 68 10 7 22 1 60 6 75 81 86 76 71 25 12 57 44 83 56 43 32 19 11 29 87 48 49 88 21 53 40 47
 // ./push_swap 2 9 1 20 12 14 5 7 16 11 6 3 10 13 17 18 19 4 8 15
 void	sort_big(t_all *all)
@@ -615,7 +679,7 @@ void	sort_big(t_all *all)
 		ft_printf("%s", *ptr_arr);
 		ptr_arr++;
 	}
-	ft_printf("cmds = %d\n", cmd_list.cmd_i);
+	ft_printf("cmds befre = %d\n", cmd_list.cmd_i);
 	combine_cmd_list(&cmd_list);
 	ptr_arr = cmd_list.str_arr;
 	while (*ptr_arr)
@@ -623,6 +687,6 @@ void	sort_big(t_all *all)
 		ft_printf("%s", *ptr_arr);
 		ptr_arr++;
 	}
-	ft_printf("cmds = %d\n", cmd_list.cmd_i);
+	ft_printf("cmds aft = %d\n", cmd_list.cmd_i);
 	free_strs(cmd_list.str_arr);
 }
