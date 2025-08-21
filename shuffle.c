@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shuffle.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 17:42:44 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/21 19:42:44 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/21 21:06:18 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	main(void)
 	int	N;
 	int	arr[500];
 
-	N = 500;
+	N = 100;
 	for (int i = 0; i < N; i++)
 		arr[i] = i + 1;
 	srand(time(NULL));

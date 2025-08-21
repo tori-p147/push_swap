@@ -6,7 +6,7 @@
 /*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:23:11 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/17 13:14:18 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/21 22:45:42 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,19 @@ typedef struct s_array
 	int				length;
 }					t_array;
 
+int					get_min_count(int pb_count, int pa_count);
+void				first_process(t_all *all, t_cmd_list *cmd_list);
+void				combine_cmd_list(t_cmd_list *cmd_list);
+void				check_strdup(t_all *all, t_cmd_list *cmd_list);
+void				do_push_b(t_all *all, t_cmd_list *cmd_list);
+void				do_push_a(t_all *all, t_cmd_list *cmd_list);
+void				do_swap_a(t_all *all, t_cmd_list *cmd_list);
+void				do_swap_b(t_all *all, t_cmd_list *cmd_list);
+void				init_str_arr(t_all *all, t_cmd_list *cmd_list);
+void				do_reverse_rotate_a(t_all *all, t_cmd_list *cmd_list);
+void				do_reverse_rotate_b(t_all *all, t_cmd_list *cmd_list);
+void				do_rotate_a(t_all *all, t_cmd_list *cmd_list);
+void				do_rotate_b(t_all *all, t_cmd_list *cmd_list);
 int					validate(int argc, char **argv, t_array *unsorted_ints);
 int					free_and_return_error_validation(t_nums *nums, int *ints);
 int					is_valid_nums(t_nums *nums, t_array *ints);

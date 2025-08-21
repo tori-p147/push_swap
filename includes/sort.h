@@ -6,7 +6,7 @@
 /*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 17:18:40 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/19 21:05:41 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/21 22:36:56 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,14 @@ void						swap_values(t_node *first, t_node *second);
 void						swap(t_llist *stack);
 int							get_min_index(t_llist *stack_a);
 int							get_max_index(t_llist *stack_b);
-void						shift_min_to_head(t_llist *stack_a);
-void						sort3(t_llist *stack);
-void						sort4(t_all *all);
-void						sort5(t_all *all);
-void						sort_rest(t_all *all, int unsort_nums_amount);
+void						shift_min_to_head(t_all *all, t_cmd_list *cmd_list);
+void						sort3(t_all *all, t_cmd_list *cmd_list);
+void						sort4(t_all *all, t_cmd_list *cmd_list);
+void						sort5(t_all *all, t_cmd_list *cmd_list);
+void						sort_rest(t_all *all, int unsort_nums_amount,
+								t_cmd_list *cmd_list);
 // int						get_max_order(t_llist *stack_a);
 int							sort_small(t_all *all);
-void						sort_big(t_all *all);
+void	sort_big(t_all *all, t_cmd_list *cmd_list);
 void						sort_main(t_all *all);
 #endif

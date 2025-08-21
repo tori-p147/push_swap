@@ -6,7 +6,7 @@
 /*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 15:56:57 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/16 13:56:46 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/21 22:27:31 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,71 +36,52 @@ int	get_min_index(t_llist *stack_a)
 	return (min_index);
 }
 
-void	shift_min_to_head(t_llist *stack_a)
+void	shift_min_to_head(t_all *all, t_cmd_list *cmd_list)
 {
 	int	rra_times;
 	int	min_index;
 
 	rra_times = 0;
-	min_index = get_min_index(stack_a);
+	min_index = get_min_index(all->stack_a);
 	if (min_index == 0)
 		return ;
-	if (min_index <= stack_a->size / 2)
+	if (min_index <= all->stack_a->size / 2)
 	{
 		while (min_index-- > 0)
-		{
-			rotate(stack_a);
-			ft_printf("%s", RA);
-		}
+			do_rotate_a(all, cmd_list);
 	}
 	else
 	{
-		rra_times = stack_a->size - min_index;
+		rra_times = all->stack_a->size - min_index;
 		while (rra_times-- > 0)
-		{
-			reverse_rotate(stack_a);
-			ft_printf("%s", RRA);
-		}
+			do_reverse_rotate_a(all, cmd_list);
 	}
 }
 
-void	sort3(t_llist *stack)
+void	sort3(t_all *all, t_cmd_list *cmd_list)
 {
 	int	first;
 	int	second;
 	int	third;
 
-	first = stack->head->order;
-	second = stack->head->next->order;
-	third = stack->head->next->next->order;
+	first = all->stack_a->head->order;
+	second = all->stack_a->head->next->order;
+	third = all->stack_a->head->next->next->order;
 	if (first > second && second > third)
 	{
-		swap(stack);
-		ft_printf("%s", SA);
-		reverse_rotate(stack);
-		ft_printf("%s", RRA);
+		do_swap_a(all, cmd_list);
+		do_reverse_rotate_a(all, cmd_list);
 	}
 	else if (first > second && third < first)
-	{
-		rotate(stack);
-		ft_printf("%s", RA);
-	}
+		do_rotate_a(all, cmd_list);
 	else if (first > second && third > first)
-	{
-		swap(stack);
-		ft_printf("%s", SA);
-	}
+		do_swap_a(all, cmd_list);
 	else if (first < second && first > third)
-	{
-		reverse_rotate(stack);
-		ft_printf("%s", RRA);
-	}
+		do_reverse_rotate_a(all, cmd_list);
 	else if (first < second && first < third)
 	{
-		swap(stack);
-		ft_printf("%s", SA);
-		rotate(stack);
-		ft_printf("%s", RA);
+		do_swap_a(all, cmd_list);
+		do_rotate_a(all, cmd_list);
 	}
 }
 
@@ -123,13 +104,13 @@ int	*create_orders_arr(t_llist *stack)
 	return (ptr_arr);
 }
 
-void	sort4(t_all *all)
+void	sort4(t_all *all, t_cmd_list *cmd_list)
 {
-	shift_min_to_head(all->stack_a);
-	sort_rest(all, 3);
+	shift_min_to_head(all, cmd_list);
+	sort_rest(all, 3, cmd_list);
 }
 
-void	sort_rest(t_all *all, int unsort_nums_amount)
+void	sort_rest(t_all *all, int unsort_nums_amount, t_cmd_list *cmd_list)
 {
 	int	*arr;
 
@@ -141,18 +122,18 @@ void	sort_rest(t_all *all, int unsort_nums_amount)
 	}
 	if (!is_sorted(arr, all->stack_a->size))
 	{
-		push_b(all);
+		do_push_b(all, cmd_list);
 		if (unsort_nums_amount == 3)
-			sort3(all->stack_a);
+			sort3(all, cmd_list);
 		else if (unsort_nums_amount == 4)
-			sort4(all);
-		push_a(all);
+			sort4(all, cmd_list);
+		do_push_a(all, cmd_list);
 	}
 	free(arr);
 }
 
-void	sort5(t_all *all)
+void	sort5(t_all *all, t_cmd_list *cmd_list)
 {
-	shift_min_to_head(all->stack_a);
-	sort_rest(all, 4);
+	shift_min_to_head(all, cmd_list);
+	sort_rest(all, 4, cmd_list);
 }

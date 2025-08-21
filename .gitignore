@@ -2,6 +2,7 @@
 *.o
 *.a
 *.json
+*.out
 
 # Ignore IDE folders
 .vscode/
