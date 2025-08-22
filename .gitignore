@@ -2,7 +2,6 @@
 *.o
 *.a
 *.json
-*.out
 
 # Ignore IDE folders
 .vscode/
@@ -10,3 +9,6 @@
 push_swap
 shuffle
 checker
+checker_linux
+shuffle.c
+a.out

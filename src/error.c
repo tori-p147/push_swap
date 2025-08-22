@@ -6,18 +6,18 @@
 /*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:33:36 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/14 16:07:13 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/22 11:59:26 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	exit_error_big_sort(t_all *all, char **strs)
+int	exit_error_big_sort(t_all *all, t_cmd_list *cmd_list)
 {
 	if (all)
 		free_all(all);
-	if (strs)
-		free_strs(strs);
+	if (cmd_list)
+		free_strs(cmd_list);
 	write(2, "Error\n", 7);
 	exit(EXIT_FAILURE);
 }

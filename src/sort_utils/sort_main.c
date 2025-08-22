@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_main.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 15:50:24 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/21 22:47:33 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/22 18:12:45 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,14 @@ void	sort_main(t_all *all)
 		sort3(all, &cmd_list);
 	else if (n == 2)
 		do_swap_a(all, &cmd_list);
+	cmd_list.str_arr[cmd_list.cmd_i] = NULL;
+	// ptr_arr = cmd_list.str_arr;
+	// while (*ptr_arr)
+	// {
+	// 	ft_printf("%s", *ptr_arr);
+	// 	ptr_arr++;
+	// }
+	// ft_printf("cmds bfr= %d\n", cmd_list.cmd_i);
 	// combine_cmd_list(&cmd_list);
 	ptr_arr = cmd_list.str_arr;
 	while (*ptr_arr)
@@ -49,6 +57,10 @@ void	sort_main(t_all *all)
 		ft_printf("%s", *ptr_arr);
 		ptr_arr++;
 	}
-	free_strs(cmd_list.str_arr);
+	cmd_list.cmd_i = 0;
+	while (cmd_list.str_arr[cmd_list.cmd_i])
+    	cmd_list.cmd_i++;
+	// ft_printf("cmds aft= %d\n", cmd_list.cmd_i);
+	free_strs(&cmd_list);
 	free_all(all);
 }

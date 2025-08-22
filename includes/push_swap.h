@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:23:11 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/21 22:45:42 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/22 17:07:14 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 
 # define SA "sa\n"
 # define SB "sb\n"
+# define SS "ss\n"
 # define PA "pa\n"
 # define PB "pb\n"
 # define RR "rr\n"
@@ -30,6 +31,7 @@
 # define RR "rr\n"
 # define RRA "rra\n"
 # define RRB "rrb\n"
+# define RRR "rrr\n"
 
 typedef struct s_cmd_list
 {
@@ -77,6 +79,7 @@ typedef struct s_array
 	int				length;
 }					t_array;
 
+int					is_sorted_stack(t_llist *stack);
 int					get_min_count(int pb_count, int pa_count);
 void				first_process(t_all *all, t_cmd_list *cmd_list);
 void				combine_cmd_list(t_cmd_list *cmd_list);
@@ -110,6 +113,7 @@ t_llist				*fill_list(t_llist *list, t_array *unsorted,
 void				add_front(t_llist *list, t_node *new_node);
 void				add_last(t_llist *list, t_node *new_node);
 t_node				*create_node(int value, int order);
+void				free_strs(t_cmd_list *cmd_list);
 void				free_list(t_llist *list);
 void				free_all(t_all *all);
 t_node				*remove_first(t_llist *list);

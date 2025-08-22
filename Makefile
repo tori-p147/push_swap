@@ -1,14 +1,17 @@
 NAME = push_swap
+BONUS = checker
 
 SRC_DIR = src
 VAL_DIR = validation_utils
+VAL_DIR_BONUS = validation_utils_bonus
 SORT_DIR = sort_utils
+CMD_DIR = cmd_list_utils
 INC_DIR = includes
 LIBFT_DIR = libft
 GNL_DIR = gnl
 PRINTF_DIR = printf
 
-SRC = main.c \
+SRC_MAIN = main.c \
 		$(SRC_DIR)/error.c \
 		$(SRC_DIR)/parser.c \
 		$(SRC_DIR)/free_utils.c \
@@ -23,9 +26,26 @@ SRC = main.c \
 		$(SRC_DIR)/$(SORT_DIR)/rotate.c \
 		$(SRC_DIR)/$(SORT_DIR)/swap.c \
 		$(SRC_DIR)/$(SORT_DIR)/reverse_rotate.c \
-		$(SRC_DIR)/$(SORT_DIR)/cmds_list.c
+		$(SRC_DIR)/$(CMD_DIR)/combiner.c \
+		$(SRC_DIR)/$(CMD_DIR)/do_push.c \
+		$(SRC_DIR)/$(CMD_DIR)/do_rotate.c \
+		$(SRC_DIR)/$(CMD_DIR)/do_swap.c
 
-OBJ = $(SRC:.c=.o)
+SRC_BONUS = checker.c \
+		$(SRC_DIR)/parser.c \
+		$(SRC_DIR)/sorter.c \
+		$(SRC_DIR)/free_utils.c \
+		$(SRC_DIR)/lincked_list.c \
+		$(SRC_DIR)/$(VAL_DIR)/validation_main.c \
+		$(SRC_DIR)/$(VAL_DIR)/validation_utils.c \
+		$(SRC_DIR)/error.c \
+		$(SRC_DIR)/$(SORT_DIR)/push.c \
+		$(SRC_DIR)/$(SORT_DIR)/rotate.c \
+		$(SRC_DIR)/$(SORT_DIR)/swap.c \
+		$(SRC_DIR)/$(SORT_DIR)/reverse_rotate.c
+
+OBJ = $(SRC_MAIN:.c=.o)
+OBJ_BONUS = $(SRC_BONUS:.c=.o)
 LIBFT_A = $(LIBFT_DIR)/libft.a
 GNL_A = $(GNL_DIR)/gnl.a
 PRINTF_A = $(PRINTF_DIR)/libftprintf.a
@@ -37,7 +57,9 @@ RM = rm -f
 CFLAGS = -Wall -Wextra -Werror
 INCLUDES = -I$(INC_DIR) -I$(LIBFT_DIR) -I$(GNL_DIR) -I$(PRINTF_DIR)/includes
 
-all: $(LIBFT_A) $(GNL_A) $(PRINTF_A) $(NAME)
+all: $(NAME)
+
+bonus: $(BONUS)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDES)
@@ -57,17 +79,20 @@ $(PRINTF_A):
 $(NAME): $(OBJ) $(LIBFT_A) $(GNL_A) $(PRINTF_A)
 	$(CC) $(OBJ) $(LIBFT_A) $(GNL_A) $(PRINTF_A) $(INCLUDES) -o $(NAME)
 
+$(BONUS): $(OBJ_BONUS) $(LIBFT_A) $(GNL_A) $(PRINTF_A)
+	$(CC) $(OBJ_BONUS) $(LIBFT_A) $(GNL_A) $(PRINTF_A) $(INCLUDES) -o $(BONUS)
+
 clean:
 	$(MAKE) -C $(LIBFT_DIR) clean
 	$(MAKE) -C $(GNL_DIR) clean
 	$(MAKE) -C $(PRINTF_DIR) clean
-	@$(RM) $(OBJ)
+	@$(RM) $(OBJ) $(OBJ_BONUS)
 
 fclean:
 	$(MAKE) -C $(LIBFT_DIR) fclean
 	$(MAKE) -C $(GNL_DIR) fclean
 	$(MAKE) -C $(PRINTF_DIR) fclean
-	@$(RM) $(OBJ) $(NAME)
+	@$(RM) $(OBJ) $(NAME) $(OBJ_BONUS) $(BONUS)
 
 re: fclean all
 

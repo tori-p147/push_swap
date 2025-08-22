@@ -6,7 +6,7 @@
 /*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 21:38:58 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/04 15:11:32 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/22 17:04:39 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,20 @@ void sort(t_array *ints)
 			i++;
 		}
 	}
+}
+
+int	is_sorted_stack(t_llist *stack)
+{
+	t_node	*ptr_head;
+	int		curr_order;
+
+	ptr_head = stack->head;
+	while (ptr_head->next)
+	{
+		curr_order = ptr_head->order;
+		if (curr_order > ptr_head->next->order)
+			return (0);
+		ptr_head = ptr_head->next;
+	}
+	return (1);
 }

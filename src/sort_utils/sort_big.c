@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_big.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 15:22:36 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/21 22:50:01 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/22 18:09:49 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,14 @@ void	first_process(t_all *all, t_cmd_list *cmd_list)
 		if (curr_order <= all->mid)
 		{
 			do_push_b(all, cmd_list);
+			// ft_printf("pb\n");
 			all->stack_b->head->flag = all->flag + 1;
 		}
 		else
+		{
 			do_rotate_a(all, cmd_list);
+			// ft_printf("ra\n");
+		}
 	}
 	all->flag = 1;
 }
@@ -90,14 +94,15 @@ void	process_a_flag(t_all *all, t_cmd_list *cmd_list)
 		if (all->stack_a->head->order == all->next)
 		{
 			do_rotate_a(all, cmd_list);
+			// ft_printf("ra\n");
 			all->next++;
 			all->stack_a->tail->flag = -1;
 			continue ;
 		}
 		do_push_b(all, cmd_list);
+		// ft_printf("pb\n");
 		if (max_flag == 0)
 			all->stack_b->head->flag = all->flag;
-		cmd_list->cmd_i++;
 	}
 	// ft_printf("end a\n");
 }
@@ -141,6 +146,7 @@ void	check_capacity(t_all *all, t_cmd_list *cmd_list)
 	char	**new_arr;
 	int		i;
 
+	new_arr = NULL;
 	new_capacity = cmd_list->capacity * 2;
 	i = 0;
 	if (cmd_list->cmd_i >= cmd_list->capacity)
@@ -153,7 +159,8 @@ void	check_capacity(t_all *all, t_cmd_list *cmd_list)
 			new_arr[i] = cmd_list->str_arr[i];
 			i++;
 		}
-		new_arr[i] = NULL;
+		while (i < new_capacity)
+   			new_arr[i++] = NULL;
 		free(cmd_list->str_arr);
 		cmd_list->str_arr = new_arr;
 		cmd_list->capacity = new_capacity;
@@ -184,30 +191,6 @@ int	get_max_index(t_llist *stack_b)
 	return (max_order);
 }
 
-void	move_to_top_b_rotate(t_all *all, t_cmd_list *cmd_list)
-{
-	t_node	*curr;
-	int		next_pos;
-
-	if (all->stack_b->size == 2)
-	{
-		if (all->stack_b->head->order > all->stack_b->tail->order)
-			do_swap_b(all, cmd_list);
-		return ;
-	}
-	curr = all->stack_b->head;
-	next_pos = 0;
-	while (curr)
-	{
-		if (curr->order == all->next)
-			break ;
-		next_pos++;
-		curr = curr->next;
-	}
-	if (next_pos <= all->stack_b->size / 2)
-		do_rotate_b(all, cmd_list);
-}
-
 void	move_to_top_b(t_all *all, t_cmd_list *cmd_list)
 {
 	t_node	*curr;
@@ -218,7 +201,10 @@ void	move_to_top_b(t_all *all, t_cmd_list *cmd_list)
 	if (size == 2)
 	{
 		if (all->stack_b->head->order > all->stack_b->tail->order)
+		{
 			do_swap_b(all, cmd_list);
+			// ft_printf("sb\n");
+		}
 		return ;
 	}
 	curr = all->stack_b->head;
@@ -233,9 +219,15 @@ void	move_to_top_b(t_all *all, t_cmd_list *cmd_list)
 	if (next_pos == 0)
 		return ;
 	if (next_pos <= size / 1.5)
+	{
 		do_rotate_b(all, cmd_list);
+		// ft_printf("rb\n");
+	}
 	else
+	{
 		do_reverse_rotate_b(all, cmd_list);
+		// ft_printf("rrb\n");
+	}
 }
 
 int	is_next_found(t_llist *stack, int next)
@@ -276,19 +268,22 @@ void	process_b(t_all *all, t_cmd_list *cmd_list)
 		while (size-- > 0)
 		{
 			// all->mid = calculate_mid_order_for_flag(all->stack_b,
-					// current_flag,
+			// 		current_flag,
 			// 		all->next);
 			curr = all->stack_b->head;
 			// ft_printf("NEXT = [%d] MAX =%d MID =%d all.flag =%d curr = [%d] flag =%d next =%p\n",
 			// 	all->next, all->max, all->mid, all->flag, curr->order,
 			// 	curr->flag, curr->next);
+			// ft_printf("size = %d\n", size);
 			if (curr->order == all->next && size > 0)
 			{
 				do_push_a(all, cmd_list);
+				// ft_printf("pa\n");
 				all->next++;
 				if (is_next_found(all->stack_b, all->next))
 					move_to_top_b(all, cmd_list);
 				do_rotate_a(all, cmd_list);
+				// ft_printf("ra\n");
 				// if (is_next_found(all->stack_b, all->next))
 				// 	move_to_top_b_rotate(all, cmd_list);
 				all->stack_a->tail->flag = -1;
@@ -296,12 +291,16 @@ void	process_b(t_all *all, t_cmd_list *cmd_list)
 			else if (curr->order >= all->mid)
 			{
 				do_push_a(all, cmd_list);
+				// ft_printf("pa\n");
 				all->stack_a->head->flag = all->flag + 1;
 			}
 			else if (is_next_found(all->stack_b, all->next))
 				move_to_top_b(all, cmd_list);
 			else
+			{
 				process_a_flag(all, cmd_list);
+				size = count_flag_elements(all->stack_b, current_flag + 1);
+			}
 		}
 		if (count_flag_elements(all->stack_b, current_flag) == 0)
 			current_flag++;
@@ -427,22 +426,6 @@ int	stack_contains_next_with_0_flag(t_llist *stack, int next, int flag)
 // 	return (0);
 // }
 
-int	is_sorted_stack(t_llist *stack)
-{
-	t_node	*ptr_head;
-	int		curr_order;
-
-	ptr_head = stack->head;
-	while (ptr_head->next)
-	{
-		curr_order = ptr_head->order;
-		if (curr_order > ptr_head->next->order)
-			return (0);
-		ptr_head = ptr_head->next;
-	}
-	return (1);
-}
-
 void	print_state(t_all *all, char *msg, int i)
 {
 	t_node	*ptr_head_a;
@@ -483,13 +466,7 @@ void	sort_big(t_all *all, t_cmd_list *cmd_list)
 	// print_state(all, "stack after first ", i);
 	while (!is_sorted_stack(all->stack_a) || all->stack_b->size > 0)
 	{
-		// if (all->stack_b->size == 3 || all->stack_b->size == 2)
-		// {
-		// 	// ft_printf("small sort HEAD %d\n", all->stack_a->head->order);
-		// 	sort_small(all, 'a');
-		// 	// print_state(all, "stack after small sort ", i);
-		// 	// break ;
-		// }
+		// ft_printf("next =  %d flag = %d\n", all->next, all->flag);
 		if (all->stack_b->size > 0)
 		{
 			// ft_printf("current next = %d, flag = %d\n", all->next,
@@ -509,7 +486,6 @@ void	sort_big(t_all *all, t_cmd_list *cmd_list)
 		// ft_printf("current next = %d, flag = %d\n", all->next, all->flag);
 		// 	process_b(all);
 	}
-	cmd_list->str_arr[cmd_list->cmd_i] = NULL;
 	// ptr_arr = cmd_list.str_arr;
 	// while (*ptr_arr)
 	// {
@@ -525,5 +501,6 @@ void	sort_big(t_all *all, t_cmd_list *cmd_list)
 	// 	ptr_arr++;
 	// }
 	// ft_printf("cmds aft = %d\n", cmd_list.cmd_i);
-	print_state(all, "stack after a flag", i);
+	// print_state(all, "stack after a flag", i);
+	// ft_printf("----");
 }

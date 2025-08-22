@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 17:18:40 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/21 22:36:56 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/22 12:07:20 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,9 @@ int							stack_contains_flag(t_llist *stack, int flag);
 int							calculate_mid_order_for_flag(t_llist *stack,
 								int flag, int next);
 int							get_next_value(t_node *node, t_llist *list);
-int							exit_error_big_sort(t_all *all, char **strs);
+int							exit_error_big_sort(t_all *all, t_cmd_list *cmd_list);
 int							exit_create_list_error(t_all *all, t_llist *stack_a,
 								t_llist *stack_b, t_array *ints);
-void						free_strs(char **str);
 void						push_a(t_all *all);
 void						push_b(t_all *all);
 void						rotate(t_llist *stack_a);
