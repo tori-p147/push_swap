@@ -1,11 +1,10 @@
 NAME = push_swap
-BONUS = checker
 
 SRC_DIR = src
 VAL_DIR = validation_utils
-VAL_DIR_BONUS = validation_utils_bonus
 SORT_DIR = sort_utils
 CMD_DIR = cmd_list_utils
+INIT_DIR = init_list_utils
 INC_DIR = includes
 LIBFT_DIR = libft
 GNL_DIR = gnl
@@ -16,36 +15,25 @@ SRC_MAIN = main.c \
 		$(SRC_DIR)/parser.c \
 		$(SRC_DIR)/free_utils.c \
 		$(SRC_DIR)/sorter.c \
-		$(SRC_DIR)/lincked_list.c \
+		$(SRC_DIR)/$(INIT_DIR)/list_utils.c \
+		$(SRC_DIR)/$(INIT_DIR)/lincked_list.c \
 		$(SRC_DIR)/$(VAL_DIR)/validation_main.c \
 		$(SRC_DIR)/$(VAL_DIR)/validation_utils.c \
 		$(SRC_DIR)/$(SORT_DIR)/sort_main.c \
+		$(SRC_DIR)/$(SORT_DIR)/sort_small_utils.c \
+		$(SRC_DIR)/$(SORT_DIR)/sort_big_utils.c \
 		$(SRC_DIR)/$(SORT_DIR)/sort_small.c \
 		$(SRC_DIR)/$(SORT_DIR)/sort_big.c \
 		$(SRC_DIR)/$(SORT_DIR)/push.c \
 		$(SRC_DIR)/$(SORT_DIR)/rotate.c \
 		$(SRC_DIR)/$(SORT_DIR)/swap.c \
 		$(SRC_DIR)/$(SORT_DIR)/reverse_rotate.c \
-		$(SRC_DIR)/$(CMD_DIR)/combiner.c \
+		$(SRC_DIR)/$(CMD_DIR)/cmd_utils.c \
 		$(SRC_DIR)/$(CMD_DIR)/do_push.c \
 		$(SRC_DIR)/$(CMD_DIR)/do_rotate.c \
 		$(SRC_DIR)/$(CMD_DIR)/do_swap.c
 
-SRC_BONUS = checker.c \
-		$(SRC_DIR)/parser.c \
-		$(SRC_DIR)/sorter.c \
-		$(SRC_DIR)/free_utils.c \
-		$(SRC_DIR)/lincked_list.c \
-		$(SRC_DIR)/$(VAL_DIR)/validation_main.c \
-		$(SRC_DIR)/$(VAL_DIR)/validation_utils.c \
-		$(SRC_DIR)/error.c \
-		$(SRC_DIR)/$(SORT_DIR)/push.c \
-		$(SRC_DIR)/$(SORT_DIR)/rotate.c \
-		$(SRC_DIR)/$(SORT_DIR)/swap.c \
-		$(SRC_DIR)/$(SORT_DIR)/reverse_rotate.c
-
 OBJ = $(SRC_MAIN:.c=.o)
-OBJ_BONUS = $(SRC_BONUS:.c=.o)
 LIBFT_A = $(LIBFT_DIR)/libft.a
 GNL_A = $(GNL_DIR)/gnl.a
 PRINTF_A = $(PRINTF_DIR)/libftprintf.a
@@ -58,8 +46,6 @@ CFLAGS = -Wall -Wextra -Werror
 INCLUDES = -I$(INC_DIR) -I$(LIBFT_DIR) -I$(GNL_DIR) -I$(PRINTF_DIR)/includes
 
 all: $(NAME)
-
-bonus: $(BONUS)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDES)
@@ -79,20 +65,17 @@ $(PRINTF_A):
 $(NAME): $(OBJ) $(LIBFT_A) $(GNL_A) $(PRINTF_A)
 	$(CC) $(OBJ) $(LIBFT_A) $(GNL_A) $(PRINTF_A) $(INCLUDES) -o $(NAME)
 
-$(BONUS): $(OBJ_BONUS) $(LIBFT_A) $(GNL_A) $(PRINTF_A)
-	$(CC) $(OBJ_BONUS) $(LIBFT_A) $(GNL_A) $(PRINTF_A) $(INCLUDES) -o $(BONUS)
-
 clean:
 	$(MAKE) -C $(LIBFT_DIR) clean
 	$(MAKE) -C $(GNL_DIR) clean
 	$(MAKE) -C $(PRINTF_DIR) clean
-	@$(RM) $(OBJ) $(OBJ_BONUS)
+	@$(RM) $(OBJ)
 
 fclean:
 	$(MAKE) -C $(LIBFT_DIR) fclean
 	$(MAKE) -C $(GNL_DIR) fclean
 	$(MAKE) -C $(PRINTF_DIR) fclean
-	@$(RM) $(OBJ) $(NAME) $(OBJ_BONUS) $(BONUS)
+	@$(RM) $(OBJ) $(NAME)
 
 re: fclean all
 

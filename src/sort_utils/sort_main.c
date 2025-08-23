@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_main.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 15:50:24 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/22 18:12:45 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/23 18:46:40 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,33 @@ void	init_str_arr(t_all *all, t_cmd_list *cmd_list)
 	cmd_list->cmd_i = 0;
 }
 
+void	sort_big(t_all *all, t_cmd_list *cmd_list)
+{
+	int	current_flag;
+
+	first_process(all, cmd_list);
+	while (!is_sorted_stack(all->stack_a) || all->stack_b->size > 0)
+	{
+		if (all->stack_b->size > 0)
+		{
+			all->flag = all->stack_b->head->flag;
+			current_flag = all->flag;
+			process_b(all, cmd_list, current_flag);
+			all->flag = current_flag;
+		}
+		if (all->stack_b->size == 0)
+			process_a_flag(all, cmd_list);
+	}
+}
+
 void	sort_main(t_all *all)
 {
-	int	n;
+	int			n;
 	t_cmd_list	cmd_list;
-	char		**ptr_arr;
+	int			i;
 
 	init_str_arr(all, &cmd_list);
-	// t_node	*ptr_head_a;
-	// t_node	*ptr_head_b;
 	n = all->stack_a->size;
-	// printf("stack size = %d\n", n);
 	if (n > 5)
 		sort_big(all, &cmd_list);
 	else if (n == 5)
@@ -43,24 +59,12 @@ void	sort_main(t_all *all)
 	else if (n == 2)
 		do_swap_a(all, &cmd_list);
 	cmd_list.str_arr[cmd_list.cmd_i] = NULL;
-	// ptr_arr = cmd_list.str_arr;
-	// while (*ptr_arr)
-	// {
-	// 	ft_printf("%s", *ptr_arr);
-	// 	ptr_arr++;
-	// }
-	// ft_printf("cmds bfr= %d\n", cmd_list.cmd_i);
-	// combine_cmd_list(&cmd_list);
-	ptr_arr = cmd_list.str_arr;
-	while (*ptr_arr)
+	i = 0;
+	while (i < cmd_list.cmd_i)
 	{
-		ft_printf("%s", *ptr_arr);
-		ptr_arr++;
+		ft_printf("%s", cmd_list.str_arr[i]);
+		i++;
 	}
-	cmd_list.cmd_i = 0;
-	while (cmd_list.str_arr[cmd_list.cmd_i])
-    	cmd_list.cmd_i++;
-	// ft_printf("cmds aft= %d\n", cmd_list.cmd_i);
 	free_strs(&cmd_list);
 	free_all(all);
 }

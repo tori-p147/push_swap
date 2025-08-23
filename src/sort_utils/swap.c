@@ -6,7 +6,7 @@
 /*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 21:20:54 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/16 13:53:53 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/23 17:42:18 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ void	swap_values(t_node *first, t_node *second)
 	int	tmp_order;
 	int	tmp_flag;
 
-	// ft_printf("first = %p\n", first);
-	// ft_printf("second = %p\n", second);
-	if(!first || !second)
+	if (!first || !second)
 		return ;
 	tmp_value = first->value;
 	tmp_flag = first->flag;

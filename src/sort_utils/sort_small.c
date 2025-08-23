@@ -3,60 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   sort_small.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 15:56:57 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/22 10:53:51 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/23 17:49:26 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-int	get_min_index(t_llist *stack_a)
-{
-	t_node	*min;
-	t_node	*ptr_head;
-	int		min_index;
-	int		i;
-
-	i = 0;
-	min = stack_a->head;
-	min_index = 0;
-	ptr_head = stack_a->head;
-	while (ptr_head)
-	{
-		if (ptr_head->value < min->value)
-		{
-			min = ptr_head;
-			min_index = i;
-		}
-		ptr_head = ptr_head->next;
-		i++;
-	}
-	return (min_index);
-}
-
-void	shift_min_to_head(t_all *all, t_cmd_list *cmd_list)
-{
-	int	rra_times;
-	int	min_index;
-
-	rra_times = 0;
-	min_index = get_min_index(all->stack_a);
-	if (min_index == 0)
-		return ;
-	if (min_index <= all->stack_a->size / 2)
-	{
-		while (min_index-- > 0)
-			do_rotate_a(all, cmd_list);
-	}
-	else
-	{
-		rra_times = all->stack_a->size - min_index;
-		while (rra_times-- > 0)
-			do_reverse_rotate_a(all, cmd_list);
-	}
-}
 
 void	sort3(t_all *all, t_cmd_list *cmd_list)
 {
@@ -83,25 +37,6 @@ void	sort3(t_all *all, t_cmd_list *cmd_list)
 		do_swap_a(all, cmd_list);
 		do_rotate_a(all, cmd_list);
 	}
-}
-
-int	*create_orders_arr(t_llist *stack)
-{
-	int		*arr;
-	t_node	*ptr_head;
-	int		*ptr_arr;
-
-	arr = malloc(sizeof(int) * stack->size);
-	if (!arr)
-		return (NULL);
-	ptr_head = stack->head;
-	ptr_arr = arr;
-	while (ptr_head)
-	{
-		*arr++ = ptr_head->order;
-		ptr_head = ptr_head->next;
-	}
-	return (ptr_arr);
 }
 
 void	sort4(t_all *all, t_cmd_list *cmd_list)

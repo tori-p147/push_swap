@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:23:11 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/22 17:07:14 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/23 18:22:36 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,16 @@ typedef struct s_array
 	int				length;
 }					t_array;
 
+t_node				*create_node(int value, int order);
+t_node				*remove_head(t_llist *list);
+void				add_front(t_llist *list, t_node *new_node);
+void				add_node(t_llist *list, t_node *new_node);
+int					is_next_found(t_llist *stack, int next);
+int					count_flag_elements(t_llist *stack, int flag);
+int					find_max_flag(t_llist *stack);
 int					is_sorted_stack(t_llist *stack);
 int					get_min_count(int pb_count, int pa_count);
 void				first_process(t_all *all, t_cmd_list *cmd_list);
-void				combine_cmd_list(t_cmd_list *cmd_list);
 void				check_strdup(t_all *all, t_cmd_list *cmd_list);
 void				do_push_b(t_all *all, t_cmd_list *cmd_list);
 void				do_push_a(t_all *all, t_cmd_list *cmd_list);

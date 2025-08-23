@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmatsuda <vmatsuda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmatsuda <vmatsuda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:36:53 by vmatsuda          #+#    #+#             */
-/*   Updated: 2025/08/06 14:33:47 by vmatsuda         ###   ########.fr       */
+/*   Updated: 2025/08/23 17:34:31 by vmatsuda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	is_valid_nums(t_nums *nums, t_array *ints)
 	if (!is_integers(nums, ints))
 		return (free_and_return_error_validation(nums, ints->ints));
 	free_nums(nums);
-	// ft_printf("ints.length = %d \n", ints->length);
 	if (is_sorted(ints->ints, ints->length))
 	{
 		free(ints->ints);
@@ -72,19 +71,12 @@ int	is_integers(t_nums *nums, t_array *ints)
 	{
 		is_not_integer = false;
 		num = ft_atoi_long(nums->nums[i], &is_not_integer);
-		// printf("nums[%d] = %ld\n", i, num);
-		// printf("bool = %d\n", is_not_integer);
 		if (is_not_integer || INT_MIN > num || num > INT_MAX)
 			return (0);
 		ints->ints[i] = (int)num;
-		// ft_printf("%d\n", ints[i]);
 		i++;
 	}
 	ints->length = i;
-	// ft_printf("length %d\n", ints->length);
-	// for (int j = 0; j < ints->length; j++)
-	// 	ft_printf("%d\n", ints->ints[j]);
-	// ft_printf("%s\n", "----");
 	return (1);
 }
 
